@@ -28,6 +28,12 @@ code {
   width: 100%;
 }
 
+.hidden-input {
+  opacity: 0;
+  position: absolute;
+  z-index: 0;
+}
+
 /* WATERFALL CSS */
 
 div.waterFallChart {

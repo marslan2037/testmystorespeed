@@ -167,6 +167,15 @@ export default class Result extends React.Component {
         ];
     }
 
+    copyToClipboard = (e) => {
+        this.textArea.select();
+        document.execCommand('copy');
+        // This is just personal preference.
+        // I prefer to not show the the whole text area selected.
+        e.target.focus();
+        this.setState({ copySuccess: 'Copied!' });
+    }
+
     render() {
         let data;
         if(this.props.location.state) {
@@ -202,7 +211,9 @@ export default class Result extends React.Component {
         let mobilePageSpeedText = mobileHomePageScore < 0 ? "N/A" :  Math.round(mobileHomePageScore)
 
         return (
-            <div className="performance-container">
+            <>
+                <textarea ref={(textarea) => this.textArea = textarea} value={this.shareReportUrl} className="hidden-input" />
+                <div className="performance-container">
                 <div className="p-header p-have-grid p-middle-grid">
                     <div className="logo grid-item">
                         <h2 className="logo">
@@ -271,7 +282,7 @@ export default class Result extends React.Component {
 
                         <h2 className="menu-heading">Other Options</h2>
                         <ul>
-                            <li className="have-icon">
+                            <li className="have-icon" onClick={this.copyToClipboard}>
                                 <span className="anchor">
                                     <span className="icon">
                                         <Icon source={SendMajorMonotone} />
@@ -519,6 +530,7 @@ export default class Result extends React.Component {
                     <div className="empty-section grid-item"></div>
                 </div>
             </div>
+            </>
         )
     }
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import Chart from 'react-apexcharts';
-import moment from 'moment';
 import Helpers from '../../Helpers';
 import ClipLoader from "react-spinners/ClipLoader";
 import CompareHistory from './CompareHistory';
@@ -41,131 +40,121 @@ export default class SpeedHistory extends React.Component {
             //         }
             //     ],
             // },
-            options: {
-                noData: {
-                    text: 'No history, yet',
-                    align: 'center',
-                    verticalAlign: 'middle',
-                    offsetX: 0,
-                    offsetY: 0,
-                    style: {
-                        color: undefined,
-                        fontSize: '14px',
-                        fontFamily: undefined
-                    }
-                },
-                chart: {
-                    id: 'history',
-                    animations: {
-                        enabled: true,
-                        easing: 'easeinout',
-                        speed: 400,
-                        animateGradually: {
-                            enabled: false,
-                            delay: 50
-                        },
-                        dynamicAnimation: {
-                            enabled: true,
-                            speed: 350
-                        }
-                    },
-                    toolbar: {
-                        show: true,
-                        tools: {
-                            download: false,
-                            selection: false,
-                            zoom: false,
-                            zoomin: false,
-                            zoomout: false,
-                            pan: false,
-                            reset: false,
-                            customIcons: []
-                        },
-                        autoSelected: 'zoom'
-                    },
-                },
-                markers: {
-                    size: 6,
-                },
-                stroke: {
-                    show: true,
-                    curve: 'smooth',
-                    lineCap: 'round',
-                    colors: undefined,
-                    width: 2,
-                    dashArray: 0,
-                },
-                yaxis: {
-                    seriesName: 'Time',
-                    labels: {
-                        formatter: (value) => { return value.toFixed(2) + 's' },
-                    },
-                    axisBorder: {
-                        show: true
-                    }
-                },
-                xaxis: {
-                    type: 'datetime',
-                    labels: {
-                        formatter: function (value, timestamp) {
-                            return moment(timestamp).format("ddd, hA")
-                        },
-                        show: true,
-                        style: {
-                            fontWeight: 100,
-                            fontSize: '0.75rem',
-                        }
-                    },
-                    axisBorder: {
-                        show: true
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                    enabledOnSeries: undefined,
-                    shared: false,
-                    followCursor: false,
-                    intersect: true,
-                    inverseOrder: false,
-                    custom: undefined,
-                    fillSeriesColor: false,
-                    theme: false,
-                    style: {
-                        fontSize: '12px',
-                        fontFamily: undefined
-                    },
-                    onDatasetHover: {
-                        highlightDataSeries: false,
-                    },
-                    x: {
-                        show: true,
-                        format: 'dd MMM',
-                        formatter: undefined,
-                    },
-                    y: {
-                        formatter: undefined,
-                        title: {
-                            formatter: (seriesName) => seriesName,
-                        },
-                    },
-                    z: {
-                        formatter: undefined,
-                        title: 'Size: '
-                    },
-                    marker: {
-                        show: true,
-                    },
-                    items: {
-                        display: 'flex',
-                    },
-                    fixed: {
-                        enabled: false,
-                        position: 'topRight',
-                        offsetX: 0,
-                        offsetY: 0,
-                    },
-                }
-            },
+            // options: {
+            //     noData: {
+            //         text: 'No history, yet',
+            //         align: 'center',
+            //         verticalAlign: 'middle',
+            //         offsetX: 0,
+            //         offsetY: 0,
+            //         style: {
+            //             color: undefined,
+            //             fontSize: '14px',
+            //             fontFamily: undefined
+            //         }
+            //     },
+            //     chart: {
+            //         id: 'history',
+            //         animations: {
+            //             enabled: true,
+            //             easing: 'easeinout',
+            //             speed: 400,
+            //             animateGradually: {
+            //                 enabled: false,
+            //                 delay: 50
+            //             },
+            //             dynamicAnimation: {
+            //                 enabled: true,
+            //                 speed: 350
+            //             }
+            //         },
+            //         toolbar: {
+            //             show: true,
+            //             tools: {
+            //                 download: false,
+            //                 selection: false,
+            //                 zoom: false,
+            //                 zoomin: false,
+            //                 zoomout: false,
+            //                 pan: false,
+            //                 reset: false,
+            //                 customIcons: []
+            //             },
+            //             autoSelected: 'zoom'
+            //         },
+            //     },
+            //     markers: {
+            //         size: 6,
+            //     },
+            //     stroke: {
+            //         show: true,
+            //         curve: 'smooth',
+            //         lineCap: 'round',
+            //         colors: undefined,
+            //         width: 2,
+            //         dashArray: 0,
+            //     },
+            //     yaxis: {
+            //         seriesName: 'Time',
+            //         labels: {
+            //             formatter: (value) => { return value.toFixed(2) + 's' },
+            //         },
+            //         axisBorder: {
+            //             show: true
+            //         }
+            //     },
+            //     xaxis: {
+            //         type: 'datetime',
+            //         axisBorder: {
+            //             show: true
+            //         }
+            //     },
+            //     tooltip: {
+            //         enabled: true,
+            //         enabledOnSeries: undefined,
+            //         shared: false,
+            //         followCursor: false,
+            //         intersect: true,
+            //         inverseOrder: false,
+            //         custom: undefined,
+            //         fillSeriesColor: false,
+            //         theme: false,
+            //         style: {
+            //             fontSize: '12px',
+            //             fontFamily: undefined
+            //         },
+            //         onDatasetHover: {
+            //             highlightDataSeries: false,
+            //         },
+            //         x: {
+            //             show: true,
+            //             format: 'dd MMM',
+            //             formatter: undefined,
+            //         },
+            //         y: {
+            //             formatter: undefined,
+            //             title: {
+            //                 formatter: (seriesName) => seriesName,
+            //             },
+            //         },
+            //         z: {
+            //             formatter: undefined,
+            //             title: 'Size: '
+            //         },
+            //         marker: {
+            //             show: true,
+            //         },
+            //         items: {
+            //             display: 'flex',
+            //         },
+            //         fixed: {
+            //             enabled: false,
+            //             position: 'topRight',
+            //             offsetX: 0,
+            //             offsetY: 0,
+            //         },
+            //     }
+            // },
             series: props.history[0].data.length === 0 ? [] : props.history,
             url: props.url,
             advanceData: false,
@@ -367,7 +356,6 @@ export default class SpeedHistory extends React.Component {
                 <div className="single-section-box">
                     <div className="p-detail-box">
                         <h2>Speed over time</h2>
-                        <Chart options={this.state.options} series={this.state.series} type="line" height='450'/>
                     </div>
 
                     <div className="p-detail-box">

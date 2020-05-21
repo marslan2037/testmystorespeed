@@ -22,6 +22,8 @@ import Recommendations from './Recommendations';
 import PageBreakdown from './PageBreakdown';
 import {Waterfall} from './Waterfall';
 import ResponseCode from './ResponseCode';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Result extends React.Component {
     
@@ -167,13 +169,22 @@ export default class Result extends React.Component {
         ];
     }
 
+    DisplayMessage = (message) => {
+        toast.success(message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+        });
+    }
+
     copyToClipboard = (e) => {
         this.textArea.select();
         document.execCommand('copy');
-        // This is just personal preference.
-        // I prefer to not show the the whole text area selected.
         e.target.focus();
-        this.setState({ copySuccess: 'Copied!' });
+
+        this.DisplayMessage('Url is Copied');
     }
 
     render() {
@@ -212,7 +223,8 @@ export default class Result extends React.Component {
 
         return (
             <>
-                <textarea ref={(textarea) => this.textArea = textarea} value={this.shareReportUrl} className="hidden-input" />
+                <ToastContainer/>
+                <textarea ref={(textarea) => this.textArea = textarea} value={this.shareReportUrl} className="hidden-input" readOnly />
                 <div className="performance-container">
                 <div className="p-header p-have-grid p-middle-grid">
                     <div className="logo grid-item">

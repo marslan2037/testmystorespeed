@@ -42,7 +42,7 @@
         "react-tooltip": "^4.2.6"
     },
     "scripts": {
-        "start": "serve -s build",
+        "start": "react-scripts serve",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"

@@ -151,6 +151,9 @@ export default class Home extends React.Component {
                 this.directCheckLoader = false;
                 
                 let state = this.state;
+                let data = {
+                    data: true
+                }
                 this.props.history.push('/result', { state });
                 this.setState({
                     counter: 0

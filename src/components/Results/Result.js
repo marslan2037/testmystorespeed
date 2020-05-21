@@ -31,6 +31,16 @@ export default class Result extends React.Component {
     constructor(props) {
         super(props);
         this.scrollToTop = this.ScrollToTop.bind(this);
+
+        console.log(this.props.location)
+
+        if(this.props.location.state) {
+            console.log('you have data')
+        } else {
+            console.log('you dont have data')
+            this.props.history.push('/');
+            window.location = '/';
+        }
     }
 
     ScrollToTop() {
@@ -187,39 +197,54 @@ export default class Result extends React.Component {
         this.DisplayMessage('Url is Copied');
     }
 
-    render() {
-        let data;
-        if(this.props.location.state) {
-            data = this.props.location.state.state.data;
-            console.log(data[0]);
+    componentDidMount () {
+        console.log(this.props.location)
+    }
 
-            this.shareReportUrl = window.location.origin + '/' + data[0].id;
-            console.log(this.shareReportUrl)
+    render() {
+        let data; let desktopHomePageScore; let mobileHomePageScore; let detectedTheme; let installedApps; let desktopPageLoadTime; let mobileScores; 
+        let mobilePageLoadTime; let desktopTotalPageSize; let mobileTotalPageSize; let desktopTotalRequests; let mobileTotalRequests; let desktopPageSpeedText; 
+        let mobilePageSpeedText; 
+        console.log(this.props.location)
+        if(this.props.location.state) {
+            if(this.props.location.state.state.data) {
+
+                data = this.props.location.state.state.data;
+                console.log('this is issue')
+                console.log(data[0]);
+
+                this.shareReportUrl = window.location.origin + '/' + data[0].id;
+                console.log(this.shareReportUrl)
+
+                this.GetAdvanceChartEntries(data[0].gt_har.log.entries);
+        
+
+                desktopHomePageScore = data[0].gt_pagespeed.pageStats.overallScore;
+                mobileHomePageScore = Math.abs(100 * data[0].home_mobile.lighthouseResult.categories.performance.score);
+                
+                detectedTheme = data[0].detect.theme.name;
+                installedApps = data[0].detect.installed_apps;
+
+                desktopPageLoadTime = data[0].gt_result.results.page_load_time / 1000;
+                mobileScores = new Helpers().calculatePageScores(data[0].home_mobile.lighthouseResult.audits);
+                mobilePageLoadTime = mobileScores[3];
+                
+                desktopTotalPageSize = data[0].gt_result.results.page_bytes;
+                mobileTotalPageSize = mobileScores[5];
+
+                desktopTotalRequests = data[0].gt_result.results.page_elements;
+                mobileTotalRequests = mobileScores[6];
+                
+                desktopPageSpeedText = desktopHomePageScore < 0 ? "N/A" : Math.round(desktopHomePageScore)
+                mobilePageSpeedText = mobileHomePageScore < 0 ? "N/A" :  Math.round(mobileHomePageScore)
+            } else {
+                this.props.history.push('/');
+            }
         } else {
-            this.props.history.push('/home');
+            this.props.history.push('/');
         }
 
-        this.GetAdvanceChartEntries(data[0].gt_har.log.entries);
         
-
-        let desktopHomePageScore = data[0].gt_pagespeed.pageStats.overallScore;
-        let mobileHomePageScore = Math.abs(100 * data[0].home_mobile.lighthouseResult.categories.performance.score);
-        
-        let detectedTheme = data[0].detect.theme.name;
-        let installedApps = data[0].detect.installed_apps;
-
-        let desktopPageLoadTime = data[0].gt_result.results.page_load_time / 1000;
-        let mobileScores = new Helpers().calculatePageScores(data[0].home_mobile.lighthouseResult.audits);
-        let mobilePageLoadTime = mobileScores[3];
-        
-        let desktopTotalPageSize = data[0].gt_result.results.page_bytes;
-        let mobileTotalPageSize = mobileScores[5];
-
-        let desktopTotalRequests = data[0].gt_result.results.page_elements;
-        let mobileTotalRequests = mobileScores[6];
-        
-        let desktopPageSpeedText = desktopHomePageScore < 0 ? "N/A" : Math.round(desktopHomePageScore)
-        let mobilePageSpeedText = mobileHomePageScore < 0 ? "N/A" :  Math.round(mobileHomePageScore)
 
         return (
             <>

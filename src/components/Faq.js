@@ -1,0 +1,89 @@
+import React from 'react'
+import FaqRow from './FaqRow';
+
+export default class Faq extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            data: [
+                {
+                    question: 'What pages do you inspect?',
+                    answer: 'Contrary to most speedtools that just check 1 page, we check all the pages your costomer would see (home-collection-product-cart) '
+                },
+                {
+                    question: 'Why do you detect the store theme?',
+                    answer: 'Garbage in - garbage out. We detect your theme as often a bad theme is at the core of a bad result'
+                },
+                {
+                    question: 'Do you look at mobile speed?',
+                    answer: 'Yes - 100% mobile is crucial in todays Ecommerce. all results will have a breakdown of both the mobile and the desktop.'
+                },
+                {
+                    question: 'Why do you detect apps?',
+                    answer: 'Apps are a crucial element in determening page speed. You might notice some apps listed that you stopped using a while back, well if we list it that means the code is still there, slowing down your store speed.'
+                },
+                {
+                    question: 'What if I need help?',
+                    answer: 'Totally understandable! Within the report there is a section labled "hire a developer". '  
+                }
+            ]
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="faq-section content-section">
+                    <h2 className="title-text">FAQs</h2>
+                    <div className="questions-list">
+                        {
+                            this.state.data.map((item, i) => {
+                                return(
+                                    <div key={i}>
+                                        <FaqRow item={item} />
+                                    </div>
+                                )
+                            })
+                        }
+
+                        {/* <div className="single-question closed-question">
+                            <h2 className="question">What pages do you inspect? <i className="fa fa-angle-left"></i></h2>
+                            <p className="answer">
+                                Contrary to most speedtools that just check 1 page, we check all the pages your costomer would see (home-collection-product-cart)
+                            </p>
+                        </div>
+                        
+                        <div className="single-question closed-question">
+                            <h2 className="question">Why do you detect the store theme? <i className="fa fa-angle-left"></i></h2>
+                            <p className="answer">
+                                Garbage in - garbage out. We detect your theme as often a bad theme is at the core of a bad result
+                            </p>
+                        </div>
+                        
+                        <div className="single-question closed-question">
+                            <h2 className="question">Do you look at mobile speed? <i className="fa fa-angle-left"></i></h2>
+                            <p className="answer">
+                                Yes - 100% mobile is crucial in todays Ecommerce. all results will have a breakdown of both the mobile and the desktop.
+                            </p>
+                        </div>
+                        
+                        <div className="single-question closed-question">
+                            <h2 className="question">Why do you detect apps? <i className="fa fa-angle-left"></i></h2>
+                            <p className="answer">
+                               Apps are a crucial element in determening page speed. You might notice some apps listed that you stopped using a while back, well if we list it that means the code is still there, slowing down your store speed.
+                            </p>
+                        </div>
+                        
+                        <div className="single-question closed-question">
+                            <h2 className="question">What if I need help? <i className="fa fa-angle-left"></i></h2>
+                            <p className="answer">
+                                Totally understandable! Within the report there is a section labled "hire a developer". 
+                            </p>
+                        </div> */}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}

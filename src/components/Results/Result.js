@@ -230,7 +230,7 @@ export default class Result extends React.Component {
     }
 
     GotoHomePage() {
-        window.location = 'https://www.testmystorespeed.com';
+        window.location = '/';
     }
 
     render() {
@@ -274,8 +274,8 @@ export default class Result extends React.Component {
                 <textarea ref={(textarea) => this.textArea = textarea} value={this.shareReportUrl} className="hidden-input" readOnly />
                 <div className="performance-container">
                 <div className="p-header p-have-grid p-middle-grid">
-                    <div className="logo grid-item">
-                        <h2 className="logo" onClick={this.GotoHomePage}>
+                    <div className="logo grid-item" onClick={this.GotoHomePage}>
+                        <h2 className="logo">
                             <a>Ecom Experts</a>
                         </h2>
                         <p className="cmp-title">Test My Store Speed</p>

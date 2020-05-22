@@ -46,6 +46,38 @@ export default class Home extends React.Component {
         }
         this.DirectApiSearchUsingId();
         this.EnableTracking();
+
+        console.log(this.props)
+        console.log(this.props.location)
+        if(this.props.location.state && this.props.location.state.data) {
+            console.log('you have data');
+
+            this.ClearInterval();
+            this.setState({
+                data: null,
+                loading: false,
+                dataLoaded: false,
+                error: {
+                    hasError: false,
+                    message: null
+                }
+            })
+            this.url = this.props.location.state.data;
+            console.log(this.url);
+            if (this.url) {
+                this.directCheckLoader = true;
+                this.setState({
+                    loader: true
+                })
+                this.StartIntervalToCount();
+                // if (debugMode) {
+                //     this.initDummy()
+                // } else {
+                //     initData()
+                // }
+                this.initData();
+            }
+        }
     }
 
     UpdateLoaderValue = (value) => {
@@ -105,13 +137,11 @@ export default class Home extends React.Component {
             this.endpoint = this.BACKEND_URL + '/sc/id' + this.urlId;
         }
         if (this.url) {
-            this.endpoint = this.BACKEND_URL + '/sc/hn?url=' + this.url.replace(/^http?:\/\//, '') + '&pages=' + 'all';
+            this.endpoint = this.BACKEND_URL + '/sc/hn?url=' + this.url.replace(/^https?:\/\//, '').replace(/^http?:\/\//, '') + '&pages=' + 'all';
         }
         // if (!endpoint) return;
-        console.log('final endpoint')
-        console.log(this.url)
+        console.log('final url')
         console.log(this.endpoint)
-        console.log(this.state.loader)
         axios({
             method: 'get',
             url: this.endpoint,
@@ -122,6 +152,7 @@ export default class Home extends React.Component {
             }
         }).then(res => {
             this.ClearInterval();
+            console.log(res);
             // if(this._isMounted) {
                 this.setState({
                     data: [{
@@ -150,26 +181,25 @@ export default class Home extends React.Component {
                 })
 
                 let data = [{
-                        product: res.data.google_pagespeed_products,
-                        collection: res.data.google_pagespeed_collections,
-                        cart: res.data.google_pagespeed_cart,
-                        home: res.data.google_pagespeed_home,
-                        product_mobile: res.data.google_pagespeed_mobile_products,
-                        collection_mobile: res.data.google_pagespeed_mobile_collections,
-                        cart_mobile: res.data.google_pagespeed_mobile_cart,
-                        home_mobile: res.data.google_pagespeed_mobile_home,
-                        detect: res.data.detection_result,
-                        gt_pagespeed: res.data.gtmetrix_pagespeed,
-                        gt_result: res.data.gtmetrix_result,
-                        gt_screenshot: res.data.gtmetrix_screenshot,
-                        gt_har: res.data.gtmetrix_har,
-                        url: res.data.url,
-                        id: res.data._id,
-                        history: res.data.history,
-                    }]
+                    product: res.data.google_pagespeed_products,
+                    collection: res.data.google_pagespeed_collections,
+                    cart: res.data.google_pagespeed_cart,
+                    home: res.data.google_pagespeed_home,
+                    product_mobile: res.data.google_pagespeed_mobile_products,
+                    collection_mobile: res.data.google_pagespeed_mobile_collections,
+                    cart_mobile: res.data.google_pagespeed_mobile_cart,
+                    home_mobile: res.data.google_pagespeed_mobile_home,
+                    detect: res.data.detection_result,
+                    gt_pagespeed: res.data.gtmetrix_pagespeed,
+                    gt_result: res.data.gtmetrix_result,
+                    gt_screenshot: res.data.gtmetrix_screenshot,
+                    gt_har: res.data.gtmetrix_har,
+                    url: res.data.url,
+                    id: res.data._id,
+                    history: res.data.history,
+                }];
                 this.directCheckLoader = false;
                 
-                let state = this.state;
                 this.props.history.push('/result', { data });
                 this.setState({
                     counter: 0

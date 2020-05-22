@@ -27,6 +27,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default class Result extends React.Component {
     
+    currentUrl;
     shareReportUrl;
     constructor(props) {
         super(props);
@@ -36,6 +37,9 @@ export default class Result extends React.Component {
 
         if(this.props.location.state) {
             console.log('you have data')
+            console.log(this.props.location.state.data)
+            console.log(this.props.location.state.data[0].url)
+            this.UpdateUrl(this.props.location.state.data[0].url);
         } else {
             console.log('you dont have data')
             this.props.history.push('/');
@@ -81,7 +85,8 @@ export default class Result extends React.Component {
             {id: 4, name: 'Speed History', display: false},
             {id: 5, name: 'Hire a Developer', display: false},
         ],
-        totalImagesLength: 0
+        totalImagesLength: 0,
+        url: this.currentUrl
     }
 
     ToggleTab = (id, toggle_menu, scroll_to_top) => {
@@ -201,42 +206,55 @@ export default class Result extends React.Component {
         console.log(this.props.location)
     }
 
+    SearchFromResults = () => {
+        console.log('go back to home')
+        let data = this.state.url;
+        this.props.history.push('/', { data });
+        console.log(this.state.url)
+    }
+
+    handleChange(event) {
+        this.setState({url: event.target.value})
+
+        console.log(this.state)
+    }
+
+    UpdateUrl(url) {
+        setTimeout(() => {
+            console.log(url)
+            this.setState({
+                url: url
+            })
+            console.log(this.state)
+        }, 1000)
+    }
+
     render() {
-        let data; let desktopHomePageScore; let mobileHomePageScore; let detectedTheme; let installedApps; let desktopPageLoadTime; let mobileScores; 
-        let mobilePageLoadTime; let desktopTotalPageSize; let mobileTotalPageSize; let desktopTotalRequests; let mobileTotalRequests; let desktopPageSpeedText; 
-        let mobilePageSpeedText; 
-        console.log(this.props.location)
+        let data; let desktopHomePageScore; let detectedTheme; let installedApps; let desktopPageLoadTime; let mobileScores; 
+        let desktopTotalPageSize; let desktopTotalRequests; let desktopPageSpeedText; 
+
         if(this.props.location.state) {
             if(this.props.location.state.data) {
 
                 data = this.props.location.state.data;
-                console.log('this is issue')
-                console.log(data[0]);
 
                 this.shareReportUrl = window.location.origin + '/' + data[0].id;
-                console.log(this.shareReportUrl)
 
                 this.GetAdvanceChartEntries(data[0].gt_har.log.entries);
         
-
                 desktopHomePageScore = data[0].gt_pagespeed.pageStats.overallScore;
-                mobileHomePageScore = Math.abs(100 * data[0].home_mobile.lighthouseResult.categories.performance.score);
                 
                 detectedTheme = data[0].detect.theme.name;
                 installedApps = data[0].detect.installed_apps;
 
                 desktopPageLoadTime = data[0].gt_result.results.page_load_time / 1000;
                 mobileScores = new Helpers().calculatePageScores(data[0].home_mobile.lighthouseResult.audits);
-                mobilePageLoadTime = mobileScores[3];
                 
                 desktopTotalPageSize = data[0].gt_result.results.page_bytes;
-                mobileTotalPageSize = mobileScores[5];
 
                 desktopTotalRequests = data[0].gt_result.results.page_elements;
-                mobileTotalRequests = mobileScores[6];
                 
                 desktopPageSpeedText = desktopHomePageScore < 0 ? "N/A" : Math.round(desktopHomePageScore)
-                mobilePageSpeedText = mobileHomePageScore < 0 ? "N/A" :  Math.round(mobileHomePageScore)
             } else {
                 this.props.history.push('/');
             }
@@ -263,9 +281,10 @@ export default class Result extends React.Component {
 
                     <div className="search-bar grid-item">
                         <div className="search-input">
-                            <input ref={(inputRef) => this.inputRef = inputRef} type="text" placeholder="www.brevite.co" value={data[0].url} readOnly />
-                            {/* <span className="search-icon"><img src={searchIcon} alt=""/></span> */}
-                            <span className="search-icon"><Icon source={RedoMajorMonotone} /></span>
+                            {/* <input ref={(inputRef) => this.inputRef = inputRef} type="text" placeholder="www.brevite.co" value={data[0].url} /> */}
+                            <input type="text" name="url" value={this.state.url} 
+    onChange={this.handleChange.bind(this)}/>
+                            <span className="search-icon" onClick={this.SearchFromResults}><Icon source={RedoMajorMonotone} /></span>
                         </div>
                     </div>
 

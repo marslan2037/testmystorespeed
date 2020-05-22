@@ -47,10 +47,8 @@ export default class Home extends React.Component {
         this.DirectApiSearchUsingId();
         this.EnableTracking();
 
-        console.log(this.props)
-        console.log(this.props.location)
         if(this.props.location.state && this.props.location.state.data) {
-            console.log('you have data');
+            this.url = this.props.location.state.data;
 
             this.ClearInterval();
             this.setState({
@@ -62,19 +60,12 @@ export default class Home extends React.Component {
                     message: null
                 }
             })
-            this.url = this.props.location.state.data;
-            console.log(this.url);
             if (this.url) {
                 this.directCheckLoader = true;
                 this.setState({
                     loader: true
                 })
                 this.StartIntervalToCount();
-                // if (debugMode) {
-                //     this.initDummy()
-                // } else {
-                //     initData()
-                // }
                 this.initData();
             }
         }
@@ -139,9 +130,7 @@ export default class Home extends React.Component {
         if (this.url) {
             this.endpoint = this.BACKEND_URL + '/sc/hn?url=' + this.url.replace(/^https?:\/\//, '').replace(/^http?:\/\//, '') + '&pages=' + 'all';
         }
-        // if (!endpoint) return;
-        console.log('final url')
-        console.log(this.endpoint)
+
         axios({
             method: 'get',
             url: this.endpoint,
@@ -152,7 +141,6 @@ export default class Home extends React.Component {
             }
         }).then(res => {
             this.ClearInterval();
-            console.log(res);
             // if(this._isMounted) {
                 this.setState({
                     data: [{
@@ -233,14 +221,10 @@ export default class Home extends React.Component {
                     }
                 })
             }
-            this.props.history.push('/home');
+            this.props.history.push('/');
             this.DisplayMessage();
         })
     }
-
-    // componentWillUnmount() {
-    //     this._isMounted = false;
-    // }
 
     onUrlChange = (event) => {
         this.url = event.target.value.replace(/^https?:\/\//, '').replace(/\//, '');
@@ -266,11 +250,6 @@ export default class Home extends React.Component {
                 loader: true
             })
             this.StartIntervalToCount();
-            // if (debugMode) {
-            //     this.initDummy()
-            // } else {
-            //     initData()
-            // }
             this.initData();
         }
     }
@@ -279,11 +258,8 @@ export default class Home extends React.Component {
     directCheckLoader = false;
     DirectApiSearchUsingId = () => {
         this.urlId = this.props.match.params[0];
-        console.log(this.urlId);
-        console.log(this.props)
         this.directCheckLoader = false;
         if (this.urlId !== undefined && this.urlId !== '/home' && this.urlId !== '/result' && this.urlId !== '/') {
-            console.log(this.props.match.params[0])
             this.setState({
                 loader: true
             })

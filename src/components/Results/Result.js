@@ -33,15 +33,9 @@ export default class Result extends React.Component {
         super(props);
         this.scrollToTop = this.ScrollToTop.bind(this);
 
-        console.log(this.props.location)
-
         if(this.props.location.state) {
-            console.log('you have data')
-            console.log(this.props.location.state.data)
-            console.log(this.props.location.state.data[0].url)
             this.UpdateUrl(this.props.location.state.data[0].url);
         } else {
-            console.log('you dont have data')
             this.props.history.push('/');
             window.location = '/';
         }
@@ -202,30 +196,20 @@ export default class Result extends React.Component {
         this.DisplayMessage('Url is Copied');
     }
 
-    componentDidMount () {
-        console.log(this.props.location)
-    }
-
     SearchFromResults = () => {
-        console.log('go back to home')
         let data = this.state.url;
         this.props.history.push('/', { data });
-        console.log(this.state.url)
     }
 
     handleChange(event) {
         this.setState({url: event.target.value})
-
-        console.log(this.state)
     }
 
     UpdateUrl(url) {
         setTimeout(() => {
-            console.log(url)
             this.setState({
                 url: url
             })
-            console.log(this.state)
         }, 1000)
     }
 

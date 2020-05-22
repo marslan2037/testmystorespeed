@@ -213,7 +213,7 @@ export default class Result extends React.Component {
                 console.log('this is issue')
                 console.log(data[0]);
 
-                this.shareReportUrl = window.location.origin + data[0].id;
+                this.shareReportUrl = window.location.origin + '/' + data[0].id;
                 console.log(this.shareReportUrl)
 
                 this.GetAdvanceChartEntries(data[0].gt_har.log.entries);

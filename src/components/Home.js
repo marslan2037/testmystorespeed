@@ -102,7 +102,7 @@ export default class Home extends React.Component {
     initData() {
         this.endpoint = null;
         if (this.urlId !== undefined && this.urlId !== '/home' && this.urlId !== '/result' && this.urlId !== '/') {
-            this.endpoint = this.BACKEND_URL + '/sc/id/' + this.urlId;
+            this.endpoint = this.BACKEND_URL + '/sc/id' + this.urlId;
         }
         if (this.url) {
             this.endpoint = this.BACKEND_URL + '/sc/hn?url=' + this.url.replace(/^http?:\/\//, '') + '&pages=' + 'all';

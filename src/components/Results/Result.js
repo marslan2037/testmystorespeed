@@ -207,9 +207,9 @@ export default class Result extends React.Component {
         let mobilePageSpeedText; 
         console.log(this.props.location)
         if(this.props.location.state) {
-            if(this.props.location.state.state.data) {
+            if(this.props.location.state.data) {
 
-                data = this.props.location.state.state.data;
+                data = this.props.location.state.data;
                 console.log('this is issue')
                 console.log(data[0]);
 

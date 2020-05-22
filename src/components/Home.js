@@ -148,13 +148,29 @@ export default class Home extends React.Component {
                         hasError: false
                     }
                 })
+
+                let data = [{
+                        product: res.data.google_pagespeed_products,
+                        collection: res.data.google_pagespeed_collections,
+                        cart: res.data.google_pagespeed_cart,
+                        home: res.data.google_pagespeed_home,
+                        product_mobile: res.data.google_pagespeed_mobile_products,
+                        collection_mobile: res.data.google_pagespeed_mobile_collections,
+                        cart_mobile: res.data.google_pagespeed_mobile_cart,
+                        home_mobile: res.data.google_pagespeed_mobile_home,
+                        detect: res.data.detection_result,
+                        gt_pagespeed: res.data.gtmetrix_pagespeed,
+                        gt_result: res.data.gtmetrix_result,
+                        gt_screenshot: res.data.gtmetrix_screenshot,
+                        gt_har: res.data.gtmetrix_har,
+                        url: res.data.url,
+                        id: res.data._id,
+                        history: res.data.history,
+                    }]
                 this.directCheckLoader = false;
                 
                 let state = this.state;
-                let data = {
-                    data: true
-                }
-                this.props.history.push('/result', { state });
+                this.props.history.push('/result', { data });
                 this.setState({
                     counter: 0
                 })

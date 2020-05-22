@@ -229,6 +229,10 @@ export default class Result extends React.Component {
         }, 1000)
     }
 
+    GotoHomePage() {
+        window.location = 'https://www.testmystorespeed.com';
+    }
+
     render() {
         let data; let desktopHomePageScore; let detectedTheme; let installedApps; let desktopPageLoadTime; let mobileScores; 
         let desktopTotalPageSize; let desktopTotalRequests; let desktopPageSpeedText; 
@@ -271,8 +275,8 @@ export default class Result extends React.Component {
                 <div className="performance-container">
                 <div className="p-header p-have-grid p-middle-grid">
                     <div className="logo grid-item">
-                        <h2 className="logo">
-                            <a href="/home">Ecom Experts</a>
+                        <h2 className="logo" onClick={this.GotoHomePage}>
+                            <a>Ecom Experts</a>
                         </h2>
                         <p className="cmp-title">Test My Store Speed</p>
                     </div>
@@ -282,9 +286,11 @@ export default class Result extends React.Component {
                     <div className="search-bar grid-item">
                         <div className="search-input">
                             {/* <input ref={(inputRef) => this.inputRef = inputRef} type="text" placeholder="www.brevite.co" value={data[0].url} /> */}
-                            <input type="text" name="url" value={this.state.url} 
-    onChange={this.handleChange.bind(this)}/>
-                            <span className="search-icon" onClick={this.SearchFromResults}><Icon source={RedoMajorMonotone} /></span>
+                            <form onSubmit={this.SearchFromResults}>
+                                <input type="text" name="url" value={this.state.url} 
+        onChange={this.handleChange.bind(this)}/>
+                                <span className="search-icon" onClick={this.SearchFromResults}><Icon source={RedoMajorMonotone} /></span>
+                            </form>
                         </div>
                     </div>
 

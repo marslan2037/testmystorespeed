@@ -26,6 +26,7 @@ export default class Home extends React.Component {
     endpoint;
     interval;
     enableTracking = true;
+    tracking = false;
     BACKEND_URL = 'https://api.testmystorespeed.com/api/v1';
     dotsBackground = { "firstDot": "#4758be", "secondDot": "#3043af", "thirdDot": "#1b2f9f"};
 
@@ -97,29 +98,6 @@ export default class Home extends React.Component {
     }
     StartIntervalToCount() {
         this.interval = setInterval(this.CountUp.bind(this), 125);
-    }
-
-    initDummy() {
-        let dummy = require('../assets/dummy.json')
-        this.setState({
-            data: [{
-                product: dummy.google_pagespeed_products,
-                collection: dummy.google_pagespeed_collections,
-                cart: dummy.google_pagespeed_cart,
-                detect: dummy.detection_result,
-                home: dummy.google_pagespeed_home,
-                gt_pagespeed: dummy.gtmetrix_pagespeed,
-                gt_result: dummy.gtmetrix_result,
-                gt_screenshot: dummy.gtmetrix_screenshot,
-                gt_har: dummy.gtmetrix_har,
-            }],
-            loader: false,
-            dataLoaded: true,
-            error: {
-                hasError: false
-            }
-        })
-        this.ClearInterval();
     }
 
     initData() {
@@ -280,7 +258,7 @@ export default class Home extends React.Component {
     }
 
     EnableTracking = () => {
-        if(!this.state.tracking && this.enableTracking) {
+        if(!this.tracking && this.enableTracking) {
             const tagManagerArgs = {
                 gtmId: 'GTM-MWVC4KG'
             }
@@ -294,12 +272,13 @@ export default class Home extends React.Component {
             }
     
             ReactPixel.init('136616084074089', advancedMatching, fbOptions)
-            ReactPixel.pageView() // For tracking page view
+            ReactPixel.pageView();
             hotjar.initialize(1676568, 6)
             
-            this.setState({
-                tracking: true
-            })
+            // this.setState({
+            //     tracking: true
+            // })
+            this.tracking = true;
         }
     }
 

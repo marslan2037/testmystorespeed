@@ -56,10 +56,8 @@
 
 
 
-import React, { useEffect } from 'react'
-import { fromHar } from 'perf-cascade'
-// import helpImage from '../../../help.png'
-// import { useStore } from 'react-context-hook'
+import React, { useEffect } from 'react';
+import { fromHar } from 'perf-cascade';
 
 export const Waterfall = ({ data, tabIndex, id }) => {
   useEffect(() => {

@@ -71,81 +71,83 @@ export default class PageBreakdown extends React.Component {
 
         return (
             <>
-                <h2 className="p-small-heading" name={this.state.linkName}>{this.state.name} <span>{this.state.desktopData ? this.state.desktopData.id : null}</span></h2>
-                {
-                    this.state.desktopData ? 
-                        <>
-                            <div className="single-section-box">
-                                <div className="p-screen-sizes-box">
-                                    <div></div>
-                                    <div></div>
-                                    {/* <div></div> */}
-                                    <div className="desktop-screen">
-                                        <img src={this.state.desktopData.lighthouseResult.audits['final-screenshot'].details.data} alt='screenshot'/>
-                                    </div>
-                                    <div className="mobile-screen">
-                                        <img src={this.state.mobileData.lighthouseResult.audits['final-screenshot'].details.data} alt='screenshot'/>
-                                    </div>
-                                </div>
-                                
-                                <div className="p-detail-box">
-                                    <h2>Performance</h2>
-
-                                    <div className="p-compare-card-box">
-                                        <div className="p-compare-box-heading">
-                                            <div className="p-compare-box-row">
-                                                <p></p>
-                                                <p>
-                                                    <span>
-                                                        {/* <i className="fa fa-desktop" aria-hidden="true"></i> */}
-                                                        <Icon source={DesktopMajorMonotone} />
-                                                    </span>
-                                                    DESKTOP
-                                                </p>
-                                                <p>
-                                                    <span>
-                                                        {/* <i className="fa fa-mobile" aria-hidden="true"></i> */}
-                                                        <Icon source={MobileMajorMonotone} />
-                                                    </span>
-                                                    MOBILE
-                                                </p>
-                                            </div>
+                <div name={this.state.linkName}>
+                    <h2 className="p-small-heading">{this.state.name} <span>{this.state.desktopData ? this.state.desktopData.id : null}</span></h2>
+                    {
+                        this.state.desktopData ? 
+                            <>
+                                <div className="single-section-box">
+                                    <div className="p-screen-sizes-box">
+                                        <div></div>
+                                        <div></div>
+                                        {/* <div></div> */}
+                                        <div className="desktop-screen">
+                                            <img src={this.state.desktopData.lighthouseResult.audits['final-screenshot'].details.data} alt='screenshot'/>
                                         </div>
-
-                                        <ComparePerformance 
-                                            dScore={desktopScore} 
-                                            mScore={mobileScore} 
-                                            dText={desktopSpeedText} 
-                                            mText={mobileSpeedText} 
-                                            dLoadTime={desktopPLT}
-                                            mLoadTime={mobilePLT}
-                                            dSize={new Helpers().formatBytes(desktopTPS)} 
-                                            mSize={new Helpers().formatBytes(mobileTPS)} 
-                                            dRequests={desktopTR} 
-                                            mRequests={mobileTR} 
-                                            desktop_html_score={desktop_html_score}
-                                            desktop_css_score={desktop_css_score}
-                                            desktop_javascript_score={desktop_javascript_score}
-                                            mobile_html_score={mobile_html_score}
-                                            mobile_css_score={mobile_css_score}
-                                            mobile_javascript_score={mobile_javascript_score}
-                                        />
-                                        
+                                        <div className="mobile-screen">
+                                            <img src={this.state.mobileData.lighthouseResult.audits['final-screenshot'].details.data} alt='screenshot'/>
+                                        </div>
                                     </div>
+                                    
+                                    <div className="p-detail-box">
+                                        <h2>Performance</h2>
+
+                                        <div className="p-compare-card-box">
+                                            <div className="p-compare-box-heading">
+                                                <div className="p-compare-box-row">
+                                                    <p></p>
+                                                    <p>
+                                                        <span>
+                                                            {/* <i className="fa fa-desktop" aria-hidden="true"></i> */}
+                                                            <Icon source={DesktopMajorMonotone} />
+                                                        </span>
+                                                        DESKTOP
+                                                    </p>
+                                                    <p>
+                                                        <span>
+                                                            {/* <i className="fa fa-mobile" aria-hidden="true"></i> */}
+                                                            <Icon source={MobileMajorMonotone} />
+                                                        </span>
+                                                        MOBILE
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <ComparePerformance 
+                                                dScore={desktopScore} 
+                                                mScore={mobileScore} 
+                                                dText={desktopSpeedText} 
+                                                mText={mobileSpeedText} 
+                                                dLoadTime={desktopPLT}
+                                                mLoadTime={mobilePLT}
+                                                dSize={new Helpers().formatBytes(desktopTPS)} 
+                                                mSize={new Helpers().formatBytes(mobileTPS)} 
+                                                dRequests={desktopTR} 
+                                                mRequests={mobileTR} 
+                                                desktop_html_score={desktop_html_score}
+                                                desktop_css_score={desktop_css_score}
+                                                desktop_javascript_score={desktop_javascript_score}
+                                                mobile_html_score={mobile_html_score}
+                                                mobile_css_score={mobile_css_score}
+                                                mobile_javascript_score={mobile_javascript_score}
+                                            />
+                                            
+                                        </div>
+                                    </div>
+
+                                    <ImagesList data={this.state.desktopData} name={'Desktop'} />
+
+                                    <ImagesList data={this.state.mobileData} name={'Mobile'} />
                                 </div>
+                            </>
 
-                                <ImagesList data={this.state.desktopData} name={'Desktop'} />
+                        :
 
-                                <ImagesList data={this.state.mobileData} name={'Mobile'} />
-                            </div>
-                        </>
-
-                    :
-
-                    <div className="single-section-box">
-                        <p>No Data!</p>
-                    </div>
-                }
+                        <div className="single-section-box">
+                            <p>No Data!</p>
+                        </div>
+                    }
+                </div>
             </>
         )
     }

@@ -1,8 +1,6 @@
 import React from 'react';
-import { Line } from 'react-chartjs-2';
 import Chart from 'react-apexcharts';
 import moment from 'moment';
-import Helpers from '../../Helpers';
 import ClipLoader from "react-spinners/ClipLoader";
 import CompareHistory from './CompareHistory';
 const axios = require('axios');
@@ -15,32 +13,6 @@ export default class SpeedHistory extends React.Component {
     
         this.state = {
             loading: true,
-            // data: {
-            //     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            //     datasets: [
-            //         {
-            //             label: 'My First dataset',
-            //             fill: false,
-            //             lineTension: 0.1,
-            //             backgroundColor: 'rgba(75,192,192,0.4)',
-            //             borderColor: 'rgba(75,192,192,1)',
-            //             borderCapStyle: 'butt',
-            //             borderDash: [],
-            //             borderDashOffset: 0.0,
-            //             borderJoinStyle: 'miter',
-            //             pointBorderColor: 'rgba(75,192,192,1)',
-            //             pointBackgroundColor: '#fff',
-            //             pointBorderWidth: 1,
-            //             pointHoverRadius: 5,
-            //             pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-            //             pointHoverBorderColor: 'rgba(220,220,220,1)',
-            //             pointHoverBorderWidth: 2,
-            //             pointRadius: 1,
-            //             pointHitRadius: 10,
-            //             data: props.history[0].data.length === 0 ? [] : props.history
-            //         }
-            //     ],
-            // },
             options: {
                 noData: {
                     text: 'No history, yet',
@@ -206,12 +178,8 @@ export default class SpeedHistory extends React.Component {
     rightData;
     rightValue = false;
     handleLeftChange = (e) => {
-        console.log(e.target.value)
         this.leftValue = true;
         this.leftData = e.target.value;
-        // this.setState({
-        //     leftValue: e.target.value
-        // })
 
         if(this.leftValue && this.rightValue) {
             this.LoadPreviousHistory();
@@ -222,9 +190,6 @@ export default class SpeedHistory extends React.Component {
         console.log(e.target.value)
         this.rightValue = true;
         this.rightData = e.target.value;
-        // this.setState({
-        //     rightValue: e.target.value
-        // })
 
         if(this.leftValue && this.rightValue) {
             this.LoadPreviousHistory();
@@ -286,37 +251,8 @@ export default class SpeedHistory extends React.Component {
             this.setState({
                 loading: false
             })
-            // this.CountLeftTotalResult();
-            // this.CountRightTotalResult();
-            console.log(this.state);
         }
     }
-
-    // CountLeftTotalResult() {
-    //     let data = new Helpers().calculatePageScores(this.state.leftSideResults.google_pagespeed_home.lighthouseResult.audits)
-    //     let score = Math.abs(100 * this.state.leftSideResults.google_pagespeed_home.lighthouseResult.categories.performance.score);
-
-    //     this.setState({
-    //         lpageLoadTime: data[3],
-    //         lpageSize: data[5],
-    //         lpageRequests: data[6],
-    //         lpageScore: score,
-    //         lpageScoreText: score < 0 ? "N/A" : Math.round(score)
-    //     })
-    // }
-
-    // CountRightTotalResult() {
-    //     let data = new Helpers().calculatePageScores(this.state.rightSideResults.google_pagespeed_home.lighthouseResult.audits)
-    //     let score = Math.abs(100 * this.state.rightSideResults.google_pagespeed_home.lighthouseResult.categories.performance.score);
-
-    //     this.setState({
-    //         rpageLoadTime: data[3],
-    //         rpageSize: data[5],
-    //         rpageRequests: data[6],
-    //         rpageScore: score,
-    //         rpageScoreText: score < 0 ? "N/A" : Math.round(score)
-    //     })
-    // }
 
     mounted = false;
     GetPreviousHistoryList = () => {
@@ -354,11 +290,6 @@ export default class SpeedHistory extends React.Component {
 
     componentWillMount() { this.mounted = true; }
     componentWillUnmount() { this.mounted = false; }
-
-    componentDidUpdate() {
-        console.log('component is updated')
-    }
-
 
     render() {
 
@@ -410,8 +341,6 @@ export default class SpeedHistory extends React.Component {
                             </div>
 
                             {
-                                // this.state.leftValue && this.state.rightValue ? 
-
                                 <div className="result">
 
                                     {
@@ -432,165 +361,8 @@ export default class SpeedHistory extends React.Component {
                                         null
                                     }
 
-
-                                    {/* <CompareHistory data={this.state.leftSideResults.google_pagespeed_home} /> */}
-                                    {/* <div className="p-compare-card-box">
-                                        <div className="p-compare-box-heading">
-                                            <div className="p-compare-box-row">
-                                                <p></p>
-                                                <p>
-                                                    <span>
-                                                        <Icon source={DesktopMajorMonotone} />
-                                                    </span>
-                                                    DESKTOP
-                                                </p>
-                                                <p>
-                                                    <span>
-                                                        <Icon source={MobileMajorMonotone} />
-                                                    </span>
-                                                    MOBILE
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div className="p-compare-box-detail">
-                                            <div className="p-compare-box-row">
-                                                <p>Performance Score</p>
-                                                <p>
-                                                    <span className="mini-circlular-bar">
-                                                        <CircularProgressBar score={this.state.dScore} text={this.state.dText} />
-                                                    </span>
-                                                </p>
-                                                <p>
-                                                    <span className="mini-circlular-bar">
-                                                        <CircularProgressBar score={this.state.mScore} text={this.state.mText} />
-                                                    </span>
-                                                </p>
-                                            </div>
-
-                                            <div className="p-compare-box-row">
-                                                <p>Page Load time</p>
-                                                <p>{this.state.dLoadTime} s</p>
-                                                <p>{this.state.mLoadTime}</p>
-                                            </div>
-
-                                            <div className="p-compare-box-row">
-                                                <p>Total Page size</p>
-                                                <p>{this.state.dSize}</p>
-                                                <p>{this.state.mSize}</p>
-                                            </div>
-
-                                            <div className="p-compare-box-row">
-                                                <p>Requests</p>
-                                                <p>{this.state.dRequests}</p>
-                                                <p>{this.state.mRequests}</p>
-                                            </div>
-                                        </div>
-                                    </div> */}
-                                    
-
-                                    {/* <div className="p-compare-card-box">
-                                        <div className="p-compare-box-heading">
-                                            <div className="p-compare-box-row">
-                                                <p></p>
-                                                <p>
-                                                    <span>
-                                                        <Icon source={DesktopMajorMonotone} />
-                                                    </span>
-                                                    DESKTOP
-                                                </p>
-                                                <p>
-                                                    <span>
-                                                        <Icon source={MobileMajorMonotone} />
-                                                    </span>
-                                                    MOBILE
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div className="p-compare-box-detail">
-                                            <div className="p-compare-box-row">
-                                                <p>Performance Score</p>
-                                                <p>
-                                                    <span className="mini-circlular-bar">
-                                                        <CircularProgressBar score={this.state.dScore} text={this.state.dText} />
-                                                    </span>
-                                                </p>
-                                                <p>
-                                                    <span className="mini-circlular-bar">
-                                                        <CircularProgressBar score={this.state.mScore} text={this.state.mText} />
-                                                    </span>
-                                                </p>
-                                            </div>
-
-                                            <div className="p-compare-box-row">
-                                                <p>Page Load time</p>
-                                                <p>{this.state.dLoadTime} s</p>
-                                                <p>{this.state.mLoadTime}</p>
-                                            </div>
-
-                                            <div className="p-compare-box-row">
-                                                <p>Total Page size</p>
-                                                <p>{this.state.dSize}</p>
-                                                <p>{this.state.mSize}</p>
-                                            </div>
-
-                                            <div className="p-compare-box-row">
-                                                <p>Requests</p>
-                                                <p>{this.state.dRequests}</p>
-                                                <p>{this.state.mRequests}</p>
-                                            </div>
-
-                                            {
-                                                this.state.advanceData ? 
-                                                
-                                                <>
-                                                    <div className="p-compare-box-row">
-                                                        <p>Javascript</p>
-                                                        <p>%</p>
-                                                        <p>%</p>
-                                                    </div>
-
-                                                    <div className="p-compare-box-row">
-                                                        <p>HTML</p>
-                                                        <p>%</p>
-                                                        <p>%</p>
-                                                    </div>
-
-                                                    <div className="p-compare-box-row">
-                                                        <p>CSS</p>
-                                                        <p>%</p>
-                                                        <p>%</p>
-                                                    </div>
-                                                </>
-
-                                                : 
-
-                                                null
-                                            }
-                                        </div>
-                                    </div> */}
                                 </div>
-                                
-                            
-                                // :
-
-                                // null
                             }
-
-                            {/* {
-                                this.state.leftValue && this.state.rightValue ? 
-
-                                this.state.advanceData ? null :
-
-                                <div className="advance-button" onClick={this.DisplayAdvanceData}>
-                                    <p><i className="fa fa-angle-right"></i> Show advance</p>
-                                </div>
-
-                                :
-
-                                null
-                            } */}
                         </div>
                     </div>
                 </div>

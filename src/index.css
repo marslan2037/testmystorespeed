@@ -24,6 +24,15 @@ code {
 .p-screen-sizes-box.p-screen-sizes-box-performance {
   grid-template-columns: 1fr 2fr 1fr 1fr !important;
 }
+@media (min-width: 320px) and (max-width: 767px) {
+  .p-screen-sizes-box, .p-screen-sizes-box.p-screen-sizes-box-performance {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+  }  
+}
+
+
+
 .result .p-compare-card-box {
   width: 100%;
 }

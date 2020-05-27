@@ -323,8 +323,9 @@ export default class Result extends React.Component {
                                         Performance
                                     </span>
                                 </li>
+                                
                                 <li>
-                                    <span className="anchor">
+                                    <span className={this.state.sectionList[0].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="summary_section" 
                                             onClick={() => this.ToggleInnerTab(1, 1, 'summary_section')} 
@@ -335,8 +336,9 @@ export default class Result extends React.Component {
                                         >Summary</Link>
                                     </span>
                                 </li>
+
                                 <li>
-                                    <span className="anchor">
+                                    <span className={this.state.sectionList[0].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="theme_section" 
                                             onClick={() => this.ToggleInnerTab(1, 2, 'theme_section')} 
@@ -347,8 +349,9 @@ export default class Result extends React.Component {
                                         >Theme</Link>
                                     </span>
                                 </li>
+
                                 <li>
-                                    <span className="anchor">
+                                    <span className={this.state.sectionList[0].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="apps_section" 
                                             onClick={() => this.ToggleInnerTab(1, 3, 'apps_section')} 
@@ -359,8 +362,9 @@ export default class Result extends React.Component {
                                         >Apps</Link>
                                     </span>
                                 </li>
+
                                 <li>
-                                    <span className="anchor">
+                                    <span className={this.state.sectionList[0].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="advance_section" 
                                             onClick={() => this.ToggleInnerTab(1, 4, 'advance_section')} 
@@ -371,7 +375,7 @@ export default class Result extends React.Component {
                                         >Advanced</Link>
                                     </span>
                                 </li>
-                                
+
                                 <li className={this.state.sectionList[1].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(2, 1, 'true', 'true')}>
                                     <span className="anchor">
                                         <span className="icon">
@@ -380,8 +384,9 @@ export default class Result extends React.Component {
                                         Page Breakdown
                                     </span>
                                 </li>
+
                                 <li>
-                                    <span className='anchor'>
+                                    <span className={this.state.sectionList[1].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="home_section" 
                                             onClick={() => this.ToggleInnerTab(2, 1, 'home_section')} 
@@ -392,8 +397,9 @@ export default class Result extends React.Component {
                                         >Home</Link>
                                     </span>
                                 </li>
+
                                 <li>
-                                    <span className='anchor'>
+                                    <span className={this.state.sectionList[1].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="product_section" 
                                             onClick={() => this.ToggleInnerTab(2, 2, 'product_section')} 
@@ -404,8 +410,9 @@ export default class Result extends React.Component {
                                         >Product</Link>
                                     </span>
                                 </li>
+
                                 <li>
-                                    <span className='anchor'>
+                                    <span className={this.state.sectionList[1].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="collection_section" 
                                             onClick={() => this.ToggleInnerTab(2, 3, 'collection_section')} 
@@ -416,8 +423,9 @@ export default class Result extends React.Component {
                                         >Collection</Link>
                                     </span>
                                 </li>
+
                                 <li>
-                                    <span className='anchor'>
+                                    <span className={this.state.sectionList[1].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="checkout_section" 
                                             onClick={() => this.ToggleInnerTab(2, 4, 'checkout_section')} 
@@ -599,14 +607,12 @@ export default class Result extends React.Component {
                                             </div>
                                         </div>
 
-                                        <div>
-                                            <h2 className="p-small-heading">Waterfall</h2>
-                                            <div className="single-section-box">
-                                                <div className="p-detail-box">
-                                                    <h2>Waterfall</h2>
-                                                    <Waterfall data={data[0].gt_har}  id={1} />
-                                                    <p className="waterfall-mobile">Switch to Desktop view to see Waterfall</p>
-                                                </div>
+                                        <h2 className="p-small-heading">Waterfall</h2>
+                                        <div className="single-section-box">
+                                            <div className="p-detail-box">
+                                                <h2>Waterfall</h2>
+                                                <Waterfall data={data[0].gt_har}  id={1} />
+                                                <p className="waterfall-mobile">Switch to Desktop view to see Waterfall</p>
                                             </div>
                                         </div>
                                                     
@@ -624,6 +630,7 @@ export default class Result extends React.Component {
                                 (
                                     <div div name="pagebreakdown_section">
                                         <h2 className="main-content-heading">Pages</h2>
+
                                         <PageBreakdown desktopData={data[0].home} mobileData={data[0].home_mobile} name={'Home'} linkName={'home_section'} />
                                         
                                         <PageBreakdown desktopData={data[0].product} mobileData={data[0].product_mobile} name={'Product'} linkName={'product_section'} />

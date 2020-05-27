@@ -31,6 +31,10 @@ code {
   }  
 }
 
+.dummy-anchor a {
+  background: initial !important;
+}
+
 
 
 .result .p-compare-card-box {

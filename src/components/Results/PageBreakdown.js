@@ -50,12 +50,15 @@ export default class PageBreakdown extends React.Component {
             desktopSpeedText = desktopScore < 0 ? "N/A" :  Math.round(desktopScore);
             mobileSpeedText = mobileScore < 0 ? "N/A" :  Math.round(mobileScore);
 
+            console.log(this.state.desktopData.lighthouseResult.audits)
             let desktopScores = new Helpers().calculatePageScores(this.state.desktopData.lighthouseResult.audits);
+            console.log(desktopScores)
             desktopPLT = desktopScores[3];
             desktopTPS = desktopScores[5];
             desktopTR = desktopScores[6];
 
             let mobileScores = new Helpers().calculatePageScores(this.state.mobileData.lighthouseResult.audits);
+            console.log(mobileScores);
             mobilePLT = mobileScores[3];
             mobileTPS = mobileScores[5];
             mobileTR = mobileScores[6];

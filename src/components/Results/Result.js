@@ -153,62 +153,21 @@ export default class Result extends React.Component {
         const script_entries = entries.filter((item) => {
             return item.response.content.mimeType.indexOf('javascript') !== -1
         })
-        console.log(script_entries)
-        let javascriptData = {
-            total_entries: 0,
-            file_size: 0
-        }
-        javascriptData.total_entries = script_entries.length;
-        script_entries.forEach(i => {
-            javascriptData.file_size = javascriptData.file_size + i.response.content.size
-        })
 
         const html_entries = entries.filter((item) => {
             return item.response.content.mimeType.indexOf('html') !== -1
-        })
-        let htmlData = {
-            total_entries: 0,
-            file_size: 0
-        }
-        htmlData.total_entries = html_entries.length;
-        html_entries.forEach(i => {
-            htmlData.file_size = htmlData.file_size + i.response.content.size
         })
         
         const font_entries = entries.filter((item) => {
             return item.response.content.mimeType.indexOf('font') !== -1
         })
-        let fontData = {
-            total_entries: 0,
-            file_size: 0
-        }
-        fontData.total_entries = font_entries.length;
-        font_entries.forEach(i => {
-            fontData.file_size = fontData.file_size + i.response.content.size
-        })
         
         const image_entries = entries.filter((item) => {
             return item.response.content.mimeType.indexOf('image') !== -1
         })
-        let imageData = {
-            total_entries: 0,
-            file_size: 0
-        }
-        imageData.total_entries = image_entries.length;
-        image_entries.forEach(i => {
-            imageData.file_size = imageData.file_size + i.response.content.size
-        })
         
         const css_entries = entries.filter((item) => {
             return item.response.content.mimeType.indexOf('css') !== -1
-        })
-        let cssData = {
-            total_entries: 0,
-            file_size: 0
-        }
-        cssData.total_entries = css_entries.length;
-        css_entries.forEach(i => {
-            cssData.file_size = cssData.file_size + i.response.content.size
         })
 
         const other_entries = entries.filter((item) => {
@@ -217,14 +176,6 @@ export default class Result extends React.Component {
                 && !font_entries.includes(item)
                 && !html_entries.includes(item)
                 && !script_entries.includes(item)
-        })
-        let otherData = {
-            total_entries: 0,
-            file_size: 0
-        }
-        otherData.total_entries = other_entries.length;
-        other_entries.forEach(i => {
-            otherData.file_size = otherData.file_size + i.response.content.size
         })
 
         this.requestSeriesData = [
@@ -235,20 +186,8 @@ export default class Result extends React.Component {
             css_entries.length,
             other_entries.length
         ];
-        // this.requestSeriesData = [
-        //     javascriptData.file_size,
-        //     htmlData.file_size,
-        //     fontData.file_size,
-        //     imageData.file_size,
-        //     cssData.file_size,
-        //     otherData.file_size
-        // ];
-
-        console.log(this.requestSeriesData)
 
         const sum_reducer = (accumulator, currentValue) => {
-            console.log(currentValue.time)
-            console.log(currentValue)
             return accumulator + currentValue.time;
         }
 
@@ -260,15 +199,6 @@ export default class Result extends React.Component {
             css_entries.reduce(sum_reducer, 0).toFixed(0),
             other_entries.reduce(sum_reducer, 0).toFixed(0)
         ];
-        // this.weightSeriesData = [
-        //     javascriptData.file_size.reduce(sum_reducer, 0).toFixed(2),
-        //     htmlData.file_size.reduce(sum_reducer, 0).toFixed(2),
-        //     fontData.file_size.reduce(sum_reducer, 0).toFixed(2),
-        //     imageData.file_size.reduce(sum_reducer, 0).toFixed(2),
-        //     cssData.file_size.reduce(sum_reducer, 0).toFixed(2),
-        //     otherData.file_size.reduce(sum_reducer, 0).toFixed(2)
-        // ];
-        console.log(this.weightSeriesData)
     }
 
     DisplayMessage = (message) => {

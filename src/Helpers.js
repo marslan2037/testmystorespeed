@@ -26,6 +26,7 @@ export default class Helpers {
         const plt_num = audits.interactive.numericValue
         const page_size = audits['total-byte-weight'].numericValue
         const num_requests = audits['network-requests'].numericValue
+        console.log(audits['network-requests'])
         return [score_html, score_css, score_js, plt, plt_num, page_size, num_requests]
     }
   

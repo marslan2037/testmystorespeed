@@ -16,7 +16,8 @@ export default class InstalledApps extends React.Component {
                     <div className="p-card-box-detail">
                         <div className="p-card-box-heading p-card-box-row">
                             <p className="card-name">App</p>
-                            <p className="card-loading-detail">Load time</p>
+                            {/* <p className="card-loading-detail">Load time</p> */}
+                            <p className="card-loading-detail"></p>
                         </div>
 
                         {
@@ -30,7 +31,8 @@ export default class InstalledApps extends React.Component {
                                             </span> 
                                             <span className="text">{app.name}</span>    
                                         </p>
-                                        <p className="card-loading-detail">33 ms <span className="p-card-bar"><span className="p-result-bar p-success-bar"></span></span></p>
+                                        <p></p>
+                                        {/* <p className="card-loading-detail">33 ms <span className="p-card-bar"><span className="p-result-bar p-success-bar"></span></span></p> */}
                                     </div>
                                 )
                             })

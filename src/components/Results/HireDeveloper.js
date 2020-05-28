@@ -1,6 +1,6 @@
 import React from 'react';
 import ownerProfile from '../../assets/images/owner-profile.png';
-import userProfile from '../../assets/images/user-profile-img.png';
+import userProfile from '../../assets/images/carson-logo.svg';
 import logo from '../../assets/images/logo.svg';
 import cardIcon from '../../assets/images/card-i-icon.png';
 
@@ -36,17 +36,28 @@ export default class HireDeveloper extends React.Component {
                     <div className="p-hd-cards-content">
                         <div className="p-content-box">
                             <div className="p-card-icon-detail">
-                                <div className="p-card-icon"><img src={userProfile} alt="" /></div>
-                                <h2>Lukas</h2>
+                                <div className="p-card-icon carson-icon"><img src={userProfile} alt="" /></div>
+                                <h2>Carson</h2>
                                 <p className="designation">Developer</p>
                             </div>
 
-                            <p>
-                                Hey! I'm Lukas. I built the tol you're using right now. Hire me to fix your site for $125/hr.
-                            </p>
+                            <div>
+                                <p>
+                                    Get help from a dedicated Shopify developer today. No contracts. 100% money-back guarantee. 
+                                </p>
+                                <p className="p-list-heading">Here are a few examples of what Carson can do:</p>
+                                <ul>
+                                    <li>-Fix and style Shopify themes</li>
+                                    <li>-Organize shop collections</li>
+                                    <li>-Customize product pages</li>
+                                    <li>-Optimize cart pages</li>
+                                    <li>-Set up Shopify apps</li>
+                                    <li>-Create custom graphics</li>
+                                </ul>
+                            </div>
 
-                            <ul className="p-buttons">
-                                <li><button>Let's work together</button></li>
+                            <ul className="p-buttons button-grid-alignment">
+                                <li><button onClick={()=> window.open("https://heycarson.com/ambassadors?ref=testmystorespeed", "_blank")}>Let's work together</button></li>
                             </ul>
                         </div>
 
@@ -61,7 +72,7 @@ export default class HireDeveloper extends React.Component {
                                 Ecom Experts specializes in speedopimizations for Shopify websites. Full optimizations with a guarantee load time under 5s start at $699.
                             </p>
 
-                            <ul className="p-buttons">
+                            <ul className="p-buttons button-grid-alignment">
                                 <li><button onClick={()=> window.open("https://www.ecomexperts.io/pages/contact", "_blank")}>Let's work together</button></li>
                             </ul>
                         </div>
@@ -76,7 +87,7 @@ export default class HireDeveloper extends React.Component {
                                 Click below and request to be added to this developer directory. Getting listed is free.
                             </p>
 
-                            <ul className="p-buttons">
+                            <ul className="p-buttons button-grid-alignment">
                                 <li><button onClick={()=> window.open("https://www.ecomexperts.io/pages/contact", "_blank")}>Get listed</button></li>
                             </ul>
                         </div>

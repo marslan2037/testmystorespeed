@@ -1238,6 +1238,10 @@ h2.logo {
             border-radius: 50%; }
             .performance-container .p-content-container .p-content .p-hd-cards-box .p-hd-cards-content .p-content-box .p-card-icon img {
               max-width: 100%; }
+          .performance-container .p-content-container .p-content .p-hd-cards-box .p-hd-cards-content .p-content-box .p-card-icon.carson-icon {
+            width: 100px;
+            display: grid;
+            align-items: center; }
           .performance-container .p-content-container .p-content .p-hd-cards-box .p-hd-cards-content .p-content-box h2, .performance-container .p-content-container .p-content .p-hd-cards-box .p-hd-cards-content .p-content-box p.designation {
             font-family: 'SFProText-Semibold'; }
           .performance-container .p-content-container .p-content .p-hd-cards-box .p-hd-cards-content .p-content-box h2 {
@@ -1253,6 +1257,22 @@ h2.logo {
             line-height: 16px;
             font-family: 'SFProText-Regular';
             text-align: center; }
+          .performance-container .p-content-container .p-content .p-hd-cards-box .p-hd-cards-content .p-content-box p.p-list-heading {
+            margin: 8px 0 12px;
+            text-align: left; }
+          .performance-container .p-content-container .p-content .p-hd-cards-box .p-hd-cards-content .p-content-box ul {
+            margin: 0;
+            width: 100%; }
+            .performance-container .p-content-container .p-content .p-hd-cards-box .p-hd-cards-content .p-content-box ul li {
+              font-weight: normal;
+              text-align: left;
+              color: #212b36;
+              font-size: 12px;
+              line-height: 16px;
+              font-family: 'SFProText-Regular';
+              margin: 0 0 8px; }
+              .performance-container .p-content-container .p-content .p-hd-cards-box .p-hd-cards-content .p-content-box ul li:last-child {
+                margin: 0; }
           .performance-container .p-content-container .p-content .p-hd-cards-box .p-hd-cards-content .p-content-box p.designation {
             text-transform: uppercase;
             color: #637381;
@@ -1309,6 +1329,11 @@ h2.logo {
             border: 1px solid #4f5dba; }
             .performance-container .p-content-container .p-content .p-buttons li button.blue-colored:hover {
               background-color: #5563b2; }
+      .performance-container .p-content-container .p-content .p-buttons.button-grid-alignment {
+        display: grid;
+        align-items: end; }
+        .performance-container .p-content-container .p-content .p-buttons.button-grid-alignment li {
+          text-align: center !important; }
       .performance-container .p-content-container .p-content .p-buttons.page-bottom-button {
         text-align: center;
         margin: 0 0 15px; }

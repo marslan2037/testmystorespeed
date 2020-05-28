@@ -38,6 +38,17 @@ export default class Helpers {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + '' + sizes[i]
     }
   
+    FormatBytes (bytes, decimals = 2) {
+        console.log(bytes)
+        if (bytes === 0) return 'Bytes'
+        const k = 1024
+        const dm = decimals < 0 ? 0 : decimals
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+        const i = 1
+        console.log(bytes / Math.pow(k, i))
+        return sizes[i]
+    }
+  
     getRating (score) {
         if (score >= 90) {
             return 'A';

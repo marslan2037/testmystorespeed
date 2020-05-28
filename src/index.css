@@ -35,6 +35,11 @@ code {
   background: initial !important;
 }
 
+@media (min-width: 1024px) and (max-width: 1500px) {
+  .chart {
+    width: 100% !important;
+  }
+}
 
 
 .result .p-compare-card-box {

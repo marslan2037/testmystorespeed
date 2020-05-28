@@ -298,7 +298,9 @@ export default class SpeedHistory extends React.Component {
                 <div className="single-section-box">
                     <div className="p-detail-box">
                         <h2>Speed over time</h2>
-                        <Chart options={this.state.options} series={this.state.series} type="line" height='450'/>
+                        <div className="chart line-chart">
+                            <Chart options={this.state.options} series={this.state.series} type="line" height='450'/>
+                        </div>
                     </div>
 
                     <div className="p-detail-box">

@@ -1,4 +1,5 @@
 import React from 'react';
+import Helpers from '../../../Helpers';
 import { Pie } from 'react-chartjs-2';
 
 export default class PieChart extends React.Component {
@@ -30,6 +31,14 @@ export default class PieChart extends React.Component {
                 }]
             },
             options: {
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItems, data) {
+                            return data.labels[tooltipItems.index] +': ' + new Helpers().formatBytes(data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index]);
+                            // return data.labels[tooltipItems.index] +': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + ' ' + new Helpers().FormatBytes(data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index]);
+                        }
+                    },
+                },
                 responsive: true,
                 legend: {
                     display: true,

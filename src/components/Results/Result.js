@@ -227,22 +227,22 @@ export default class Result extends React.Component {
             otherData.file_size = otherData.file_size + i.response.content.size
         })
 
-        // this.requestSeriesData = [
-        //     script_entries.length,
-        //     html_entries.length,
-        //     font_entries.length,
-        //     image_entries.length,
-        //     css_entries.length,
-        //     other_entries.length
-        // ];
         this.requestSeriesData = [
-            javascriptData.file_size,
-            htmlData.file_size,
-            fontData.file_size,
-            imageData.file_size,
-            cssData.file_size,
-            otherData.file_size
+            script_entries.length,
+            html_entries.length,
+            font_entries.length,
+            image_entries.length,
+            css_entries.length,
+            other_entries.length
         ];
+        // this.requestSeriesData = [
+        //     javascriptData.file_size,
+        //     htmlData.file_size,
+        //     fontData.file_size,
+        //     imageData.file_size,
+        //     cssData.file_size,
+        //     otherData.file_size
+        // ];
 
         console.log(this.requestSeriesData)
 
@@ -253,12 +253,12 @@ export default class Result extends React.Component {
         }
 
         this.weightSeriesData = [
-            script_entries.reduce(sum_reducer, 0).toFixed(2),
-            html_entries.reduce(sum_reducer, 0).toFixed(2),
-            font_entries.reduce(sum_reducer, 0).toFixed(2),
-            image_entries.reduce(sum_reducer, 0).toFixed(2),
-            css_entries.reduce(sum_reducer, 0).toFixed(2),
-            other_entries.reduce(sum_reducer, 0).toFixed(2)
+            script_entries.reduce(sum_reducer, 0).toFixed(0),
+            html_entries.reduce(sum_reducer, 0).toFixed(0),
+            font_entries.reduce(sum_reducer, 0).toFixed(0),
+            image_entries.reduce(sum_reducer, 0).toFixed(0),
+            css_entries.reduce(sum_reducer, 0).toFixed(0),
+            other_entries.reduce(sum_reducer, 0).toFixed(0)
         ];
         // this.weightSeriesData = [
         //     javascriptData.file_size.reduce(sum_reducer, 0).toFixed(2),
@@ -654,13 +654,13 @@ export default class Result extends React.Component {
                                                     <div className="p-detail-box">
                                                         <h2>Processing Requests</h2>
 
-                                                        <PieChart data={this.requestSeriesData}/>
+                                                        <PieChart data={this.requestSeriesData} chart_section={'processing_request'}/>
                                                     </div>
                             
                                                     <div className="p-detail-box">
                                                         <h2>Processing Weight</h2>
 
-                                                        <PieChart data={this.weightSeriesData}/>
+                                                        <PieChart data={this.weightSeriesData} chart_section={'processing_weight'}/>
                                                     </div>
                                                 </div>
 

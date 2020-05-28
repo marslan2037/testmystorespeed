@@ -34,8 +34,12 @@ export default class PieChart extends React.Component {
                 tooltips: {
                     callbacks: {
                         label: function(tooltipItems, data) {
-                            return data.labels[tooltipItems.index] +': ' + new Helpers().formatBytes(data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index]);
-                            // return data.labels[tooltipItems.index] +': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + ' ' + new Helpers().FormatBytes(data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index]);
+                            if(props.chart_section == 'processing_request') {
+                                return data.labels[tooltipItems.index] +': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + ' request';
+                            } else {
+                                // return data.labels[tooltipItems.index] +': ' + new Helpers().formatBytes(data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index]);
+                                return data.labels[tooltipItems.index] +': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + ' Kb';
+                            }
                         }
                     },
                 },

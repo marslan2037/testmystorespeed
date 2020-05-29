@@ -26,7 +26,6 @@ export default class Helpers {
         const plt_num = audits.interactive.numericValue
         const page_size = audits['total-byte-weight'].numericValue
         const num_requests = audits['network-requests'].numericValue
-        console.log(audits['network-requests'])
         return [score_html, score_css, score_js, plt, plt_num, page_size, num_requests]
     }
   
@@ -37,17 +36,6 @@ export default class Helpers {
         const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
         const i = 2
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + '' + sizes[i]
-    }
-  
-    FormatBytes (bytes, decimals = 2) {
-        console.log(bytes)
-        if (bytes === 0) return 'Bytes'
-        const k = 1024
-        const dm = decimals < 0 ? 0 : decimals
-        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-        const i = 1
-        console.log(bytes / Math.pow(k, i))
-        return sizes[i]
     }
   
     getRating (score) {

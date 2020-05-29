@@ -97,7 +97,7 @@ export default class Home extends React.Component {
         clearInterval(this.interval);
     }
     StartIntervalToCount() {
-        this.interval = setInterval(this.CountUp.bind(this), 125);
+        this.interval = setInterval(this.CountUp.bind(this), 250);
     }
 
     initData() {

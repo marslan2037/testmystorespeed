@@ -35,6 +35,7 @@ export default class PageBreakdown extends React.Component {
         let desktop_html_score;
         let desktop_javascript_score;
         let desktop_css_score;
+        
         let mobile_html_score;
         let mobile_javascript_score;
         let mobile_css_score;

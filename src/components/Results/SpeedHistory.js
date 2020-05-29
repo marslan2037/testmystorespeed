@@ -10,9 +10,13 @@ export default class SpeedHistory extends React.Component {
     BACKEND_URL = 'https://api.testmystorespeed.com/api/v1';
     constructor (props) {
         super(props);
+
+        this.days_zoom = 9999;
+        this.selection = '1w';
     
         this.state = {
             loading: true,
+            chartLoading: false,
             options: {
                 noData: {
                     text: 'No history, yet',
@@ -167,6 +171,51 @@ export default class SpeedHistory extends React.Component {
         this.GetPreviousHistoryList();
     }
 
+    updateSeries () {
+        const zoom_min = Number(moment().subtract(this.days_zoom, 'days').format("x"))
+        this.setState({
+            options: { xaxis: { min: zoom_min , max: Number(moment().format('x'))} }
+        })
+        this.setState({
+            chartLoading: false
+        })
+    }
+    
+    zoom (v) {
+        setTimeout(() => {
+            this.days_zoom = v;
+            this.updateSeries();
+        }, 500)
+    }
+
+    UpdateData(value) {
+        this.setState({
+            chartLoading: true
+        })
+        this.selection = value;
+        if(value == '1d') {
+            this.zoom(1);
+        } else if(value == '1w') {
+            this.zoom(7);
+        } else if(value == '1m') {
+            this.zoom(31);
+        } else if(value == '3m') {
+            this.zoom(93);
+        } else if(value == '6m') {
+            this.zoom(186);
+        } else if(value == '1y') {
+            this.zoom(365);
+        } else if(value == 'all') {
+            this.zoomAll();
+        }
+    }
+    
+    zoomAll () {
+        const min_date = Math.min.apply(Math, this.props.history[0].data.map((o) => o.x))
+        const duration = moment.duration(moment().diff(moment(min_date)))
+        this.zoom(duration.asDays())
+    }
+
     DisplayAdvanceData = () => {
         this.setState({
             advanceData: true
@@ -296,7 +345,41 @@ export default class SpeedHistory extends React.Component {
         return (
             <>
                 <div className="single-section-box">
+
+                    <ul class="chart-range-list">
+                        {/* <li className={this.selection === '1d' ? ' active' : null} onClick={() => this.zoom1d('1d')}>1d</li>
+                        <li className={this.selection === '1w' ? ' active' : null} onClick={this.zoom1w.bind(this)}>1w</li>
+                        <li className={this.selection === '1m' ? ' active' : null} onClick={this.zoom1m.bind(this)}>1m</li>
+                        <li className={this.selection === '3m' ? ' active' : null} onClick={this.zoom3m.bind(this)}>3m</li>
+                        <li className={this.selection === '6m' ? ' active' : null} onClick={this.zoom6m.bind(this)}>6m</li>
+                        <li className={this.selection === '1y' ? ' active' : null} onClick={this.zoom1y.bind(this)}>1y</li>
+                        <li className={this.selection === 'all' ? ' active' : null} onClick={this.zoomAll.bind(this)}>all</li> */}
+                        <li className={this.selection === '1d' ? ' active' : null} onClick={() => this.UpdateData('1d')}>1d</li>
+                        <li className={this.selection === '1w' ? ' active' : null} onClick={() => this.UpdateData('1w')}>1w</li>
+                        <li className={this.selection === '1m' ? ' active' : null} onClick={() => this.UpdateData('1m')}>1m</li>
+                        <li className={this.selection === '3m' ? ' active' : null} onClick={() => this.UpdateData('3m')}>3m</li>
+                        <li className={this.selection === '6m' ? ' active' : null} onClick={() => this.UpdateData('6m')}>6m</li>
+                        <li className={this.selection === '1y' ? ' active' : null} onClick={() => this.UpdateData('1y')}>1y</li>
+                        <li className={this.selection === 'all' ? ' active' : null} onClick={() => this.UpdateData('all')}>all</li>
+                    </ul>
+
                     <div className="p-detail-box">
+                        
+                        {
+                            this.state.chartLoading ?
+                                <div className="loading-screen">
+                                    <ClipLoader
+                                        size={35}
+                                        color={"#123abc"}
+                                        loading={this.state.chartLoading}
+                                    />
+                                </div>
+                            :
+                            
+                            null
+                        }
+                        
+
                         <h2>Speed over time</h2>
                         <div className="chart line-chart">
                             <Chart options={this.state.options} series={this.state.series} type="line" height='450'/>
@@ -324,7 +407,6 @@ export default class SpeedHistory extends React.Component {
                         
                         <div className="p-compare-card-box">
                             <div className="p-compare-box-heading">
-                            
                                 <div className="p-compare-box-row">
                                     <p></p>
                                     <p>

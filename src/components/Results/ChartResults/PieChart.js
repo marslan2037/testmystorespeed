@@ -1,5 +1,4 @@
 import React from 'react';
-import Helpers from '../../../Helpers';
 import { Pie } from 'react-chartjs-2';
 
 export default class PieChart extends React.Component {
@@ -34,13 +33,13 @@ export default class PieChart extends React.Component {
                 tooltips: {
                     callbacks: {
                         label: function(tooltipItems, data) {
-                            if(props.chart_section == 'processing_request') {
+                            if(props.chart_section === 'processing_request') {
                                 return data.labels[tooltipItems.index] +': ' + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + ' requests';
                             } else {
                                 var num = data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index];
                                 var num_parts = num.toString().split(".");
                                 num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                // return num_parts.join(".");
+                                
                                 return data.labels[tooltipItems.index] +': ' + num_parts + ' Kb';
                             }
                         }

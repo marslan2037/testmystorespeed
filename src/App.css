@@ -1135,7 +1135,8 @@ h2.logo {
             .performance-container .p-content-container .p-content .p-detail-box .p-card-box-detail .p-card-box-row.p-card-box-suggestion p.type, .performance-container .p-content-container .p-content .p-detail-box .p-card-box-detail .p-card-box-row.p-card-box-suggestion p.effort {
               display: none; } }
           .performance-container .p-content-container .p-content .p-detail-box .p-card-box-detail .p-card-box-row.p-card-box-suggestion .p-card-hidden-detail {
-            grid-column: 1 / 5; }
+            grid-column: 1 / 5;
+            width: 100%; }
             @media (min-width: 320px) and (max-width: 767px) {
               .performance-container .p-content-container .p-content .p-detail-box .p-card-box-detail .p-card-box-row.p-card-box-suggestion .p-card-hidden-detail {
                 grid-column: 1 / 3; } }

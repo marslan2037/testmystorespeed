@@ -41,6 +41,13 @@ code {
   }
 }
 
+.line-chart {
+  width: 100%;
+}
+.line-chart .apexcharts-canvas {
+  max-width: 1335px !important;
+}
+
 .loading-screen {
   position: absolute;
   top: 0;

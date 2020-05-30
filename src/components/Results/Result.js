@@ -32,9 +32,42 @@ export default class Result extends React.Component {
     constructor(props) {
         super(props);
         this.scrollToTop = this.ScrollToTop.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
+        this.state = {
+            sidebarFolded: false,
+            sectionList: [
+                {
+                    id: 1, 
+                    name: 'Performance', 
+                    display: true,
+                    inner: [
+                        {id: 1, name: 'Summary', active: true},
+                        {id: 2, name: 'Theme', active: false},
+                        {id: 3, name: 'Apps', active: false},
+                        {id: 4, name: 'Advanced', display: false},
+                    ]
+                },
+                {
+                    id: 2, 
+                    name: 'Pages', 
+                    display: false,
+                    inner: [
+                        {id: 1, name: 'Home', active: false},
+                        {id: 2, name: 'Product', active: false},
+                        {id: 3, name: 'Collection', active: false},
+                        {id: 4, name: 'Checkout', display: false},
+                    ]
+                },
+                {id: 3, name: 'Recommendations', display: false},
+                {id: 4, name: 'Speed History', display: false},
+                {id: 5, name: 'Hire a Developer', display: false},
+            ],
+            totalImagesLength: 0,
+            url: this.props.location.state ? this.props.location.state.data[0].url : ''
+        }
 
         if(this.props.location.state) {
-            this.UpdateUrl(this.props.location.state.data[0].url);
         } else {
             this.props.history.push('/');
             window.location = '/';
@@ -56,38 +89,7 @@ export default class Result extends React.Component {
         scrollSpy.update();
     }
 
-    state = {
-        sidebarFolded: false,
-        sectionList: [
-            {
-                id: 1, 
-                name: 'Performance', 
-                display: true,
-                inner: [
-                    {id: 1, name: 'Summary', active: true},
-                    {id: 2, name: 'Theme', active: false},
-                    {id: 3, name: 'Apps', active: false},
-                    {id: 4, name: 'Advanced', display: false},
-                ]
-            },
-            {
-                id: 2, 
-                name: 'Pages', 
-                display: false,
-                inner: [
-                    {id: 1, name: 'Home', active: false},
-                    {id: 2, name: 'Product', active: false},
-                    {id: 3, name: 'Collection', active: false},
-                    {id: 4, name: 'Checkout', display: false},
-                ]
-            },
-            {id: 3, name: 'Recommendations', display: false},
-            {id: 4, name: 'Speed History', display: false},
-            {id: 5, name: 'Hire a Developer', display: false},
-        ],
-        totalImagesLength: 0,
-        url: this.currentUrl
-    }
+    
 
     ToggleTab = (id, inner_id, toggle_menu, scroll_to_top) => {
         scrollSpy.update();
@@ -110,7 +112,6 @@ export default class Result extends React.Component {
                         });
                     })
                 }
-                console.log(v)
                 updatedState.push(v);
                 this.setState({
                     ...this.state,
@@ -293,7 +294,7 @@ export default class Result extends React.Component {
                                         type="text" 
                                         name="url" 
                                         value={this.state.url}
-                                        onChange={this.handleChange.bind(this)}
+                                        onChange={this.handleChange}
                                     />
                                     <span className="search-icon" onClick={this.SearchFromResults}><Icon source={RedoMajorMonotone} /></span>
                                 </form>

@@ -84,7 +84,7 @@ export default class SpeedHistory extends React.Component {
                     type: 'datetime',
                     labels: {
                         formatter: function (value, timestamp) {
-                            return moment(timestamp).format("ddd, hA")
+                            return moment(timestamp).format("MMM Do YY, hA")
                         },
                         show: true,
                         style: {
@@ -174,9 +174,7 @@ export default class SpeedHistory extends React.Component {
     updateSeries () {
         const zoom_min = Number(moment().subtract(this.days_zoom, 'days').format("x"))
         this.setState({
-            options: { xaxis: { min: zoom_min , max: Number(moment().format('x'))} }
-        })
-        this.setState({
+            options: { xaxis: { min: zoom_min , max: Number(moment().format('x'))} },
             chartLoading: false
         })
     }
@@ -193,19 +191,19 @@ export default class SpeedHistory extends React.Component {
             chartLoading: true
         })
         this.selection = value;
-        if(value == '1d') {
+        if(value === '1d') {
             this.zoom(1);
-        } else if(value == '1w') {
+        } else if(value === '1w') {
             this.zoom(7);
-        } else if(value == '1m') {
+        } else if(value === '1m') {
             this.zoom(31);
-        } else if(value == '3m') {
+        } else if(value === '3m') {
             this.zoom(93);
-        } else if(value == '6m') {
+        } else if(value === '6m') {
             this.zoom(186);
-        } else if(value == '1y') {
+        } else if(value === '1y') {
             this.zoom(365);
-        } else if(value == 'all') {
+        } else if(value === 'all') {
             this.zoomAll();
         }
     }
@@ -236,7 +234,6 @@ export default class SpeedHistory extends React.Component {
     }
 
     handleRightChange = (e) => {
-        console.log(e.target.value)
         this.rightValue = true;
         this.rightData = e.target.value;
 
@@ -264,7 +261,6 @@ export default class SpeedHistory extends React.Component {
               'X-Content-Type-Options': 'nosniff'
             }
         }).then(response => {
-            console.log(response);
             this.leftSide = true;
             this.setState({
                 leftSideResults: response.data
@@ -282,7 +278,6 @@ export default class SpeedHistory extends React.Component {
               'X-Content-Type-Options': 'nosniff'
             }
         }).then(response => {
-            console.log(response);
             this.rightSide = true;
             this.setState({
                 rightSideResults: response.data
@@ -296,7 +291,6 @@ export default class SpeedHistory extends React.Component {
 
     UpDateLoadingHistoryData() {
         if(this.leftSide && this.rightSide) {
-            console.log('loading is false now')
             this.setState({
                 loading: false
             })
@@ -346,14 +340,7 @@ export default class SpeedHistory extends React.Component {
             <>
                 <div className="single-section-box">
 
-                    <ul class="chart-range-list">
-                        {/* <li className={this.selection === '1d' ? ' active' : null} onClick={() => this.zoom1d('1d')}>1d</li>
-                        <li className={this.selection === '1w' ? ' active' : null} onClick={this.zoom1w.bind(this)}>1w</li>
-                        <li className={this.selection === '1m' ? ' active' : null} onClick={this.zoom1m.bind(this)}>1m</li>
-                        <li className={this.selection === '3m' ? ' active' : null} onClick={this.zoom3m.bind(this)}>3m</li>
-                        <li className={this.selection === '6m' ? ' active' : null} onClick={this.zoom6m.bind(this)}>6m</li>
-                        <li className={this.selection === '1y' ? ' active' : null} onClick={this.zoom1y.bind(this)}>1y</li>
-                        <li className={this.selection === 'all' ? ' active' : null} onClick={this.zoomAll.bind(this)}>all</li> */}
+                    <ul className="chart-range-list">
                         <li className={this.selection === '1d' ? ' active' : null} onClick={() => this.UpdateData('1d')}>1d</li>
                         <li className={this.selection === '1w' ? ' active' : null} onClick={() => this.UpdateData('1w')}>1w</li>
                         <li className={this.selection === '1m' ? ' active' : null} onClick={() => this.UpdateData('1m')}>1m</li>

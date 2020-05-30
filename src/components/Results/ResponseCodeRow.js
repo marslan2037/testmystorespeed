@@ -48,7 +48,7 @@ export default class ResponseCodeRow extends React.Component {
                         this.state.item.map((i, index) => {
                             if (i.request.url) {
                                 return (
-                                    <li key={index}><a>{JSON.stringify(i.request.url)}</a></li>
+                                    <li key={index}><span>{JSON.stringify(i.request.url)}</span></li>
                                 )
                             } else {
                                 return null;

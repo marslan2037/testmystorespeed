@@ -46,7 +46,7 @@ export default class RecommendationsRow extends React.Component {
                         this.state.data.details && this.state.data.details.items ? this.state.data.details.items.map((item, index) => {
                             if (item.url) {
                                 return (
-                                    <li key={index}><a>{JSON.stringify(item.url)}</a></li>
+                                    <li key={index}><span>{JSON.stringify(item.url)}</span></li>
                                 )
                             } else {
                                 return null

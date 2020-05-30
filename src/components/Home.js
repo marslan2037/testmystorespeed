@@ -25,6 +25,8 @@ export default class Home extends React.Component {
     url;
     endpoint;
     interval;
+    urlId;
+    directCheckLoader = false;
     enableTracking = true;
     tracking = false;
     BACKEND_URL = 'https://api.testmystorespeed.com/api/v1';
@@ -67,7 +69,7 @@ export default class Home extends React.Component {
                     loader: true
                 })
                 this.StartIntervalToCount();
-                this.initData();
+                this.LoadApiData();
             }
         }
     }
@@ -100,7 +102,7 @@ export default class Home extends React.Component {
         this.interval = setInterval(this.CountUp.bind(this), 250);
     }
 
-    initData() {
+    LoadApiData() {
         this.endpoint = null;
         if (this.urlId !== undefined && this.urlId !== '/home' && this.urlId !== '/result' && this.urlId !== '/') {
             this.endpoint = this.BACKEND_URL + '/sc/id' + this.urlId;
@@ -119,58 +121,31 @@ export default class Home extends React.Component {
             }
         }).then(res => {
             this.ClearInterval();
-            // if(this._isMounted) {
-                this.setState({
-                    data: [{
-                        product: res.data.google_pagespeed_products,
-                        collection: res.data.google_pagespeed_collections,
-                        cart: res.data.google_pagespeed_cart,
-                        home: res.data.google_pagespeed_home,
-                        product_mobile: res.data.google_pagespeed_mobile_products,
-                        collection_mobile: res.data.google_pagespeed_mobile_collections,
-                        cart_mobile: res.data.google_pagespeed_mobile_cart,
-                        home_mobile: res.data.google_pagespeed_mobile_home,
-                        detect: res.data.detection_result,
-                        gt_pagespeed: res.data.gtmetrix_pagespeed,
-                        gt_result: res.data.gtmetrix_result,
-                        gt_screenshot: res.data.gtmetrix_screenshot,
-                        gt_har: res.data.gtmetrix_har,
-                        url: res.data.url,
-                        id: res.data._id,
-                        history: res.data.history,
-                    }], 
-                    loader: false,
-                    dataLoaded: true,
-                    error: {
-                        hasError: false
-                    }
-                })
 
-                let data = [{
-                    product: res.data.google_pagespeed_products,
-                    collection: res.data.google_pagespeed_collections,
-                    cart: res.data.google_pagespeed_cart,
-                    home: res.data.google_pagespeed_home,
-                    product_mobile: res.data.google_pagespeed_mobile_products,
-                    collection_mobile: res.data.google_pagespeed_mobile_collections,
-                    cart_mobile: res.data.google_pagespeed_mobile_cart,
-                    home_mobile: res.data.google_pagespeed_mobile_home,
-                    detect: res.data.detection_result,
-                    gt_pagespeed: res.data.gtmetrix_pagespeed,
-                    gt_result: res.data.gtmetrix_result,
-                    gt_screenshot: res.data.gtmetrix_screenshot,
-                    gt_har: res.data.gtmetrix_har,
-                    url: res.data.url,
-                    id: res.data._id,
-                    history: res.data.history,
-                }];
-                this.directCheckLoader = false;
-                
-                this.props.history.push('/result', { data });
-                this.setState({
-                    counter: 0
-                })
-            // }
+            let data = [{
+                product: res.data.google_pagespeed_products,
+                collection: res.data.google_pagespeed_collections,
+                cart: res.data.google_pagespeed_cart,
+                home: res.data.google_pagespeed_home,
+                product_mobile: res.data.google_pagespeed_mobile_products,
+                collection_mobile: res.data.google_pagespeed_mobile_collections,
+                cart_mobile: res.data.google_pagespeed_mobile_cart,
+                home_mobile: res.data.google_pagespeed_mobile_home,
+                detect: res.data.detection_result,
+                gt_pagespeed: res.data.gtmetrix_pagespeed,
+                gt_result: res.data.gtmetrix_result,
+                gt_screenshot: res.data.gtmetrix_screenshot,
+                gt_har: res.data.gtmetrix_har,
+                url: res.data.url,
+                id: res.data._id,
+                history: res.data.history,
+            }];
+            this.directCheckLoader = false;
+            
+            this.props.history.push('/result', { data });
+            this.setState({
+                counter: 0
+            })
             
         }).catch(err => {
             this.ClearInterval();
@@ -204,14 +179,14 @@ export default class Home extends React.Component {
         })
     }
 
-    onUrlChange = (event) => {
+    OnUrlChange = (event) => {
         this.url = event.target.value.replace(/^https?:\/\//, '').replace(/\//, '');
         this.setState({
             url: this.url
         })
     }
 
-    speedCheck = (e) => {
+    TestShopifyUrlSpeed = (e) => {
         e.preventDefault();
         this.ClearInterval();
         this.setState({
@@ -228,12 +203,10 @@ export default class Home extends React.Component {
                 loader: true
             })
             this.StartIntervalToCount();
-            this.initData();
+            this.LoadApiData();
         }
     }
 
-    urlId;
-    directCheckLoader = false;
     DirectApiSearchUsingId = () => {
         this.urlId = this.props.match.params[0];
         this.directCheckLoader = false;
@@ -243,7 +216,7 @@ export default class Home extends React.Component {
             })
             this.directCheckLoader = true;
             this.StartIntervalToCount();
-            this.initData();
+            this.LoadApiData();
         }
     } 
 
@@ -267,17 +240,12 @@ export default class Home extends React.Component {
             ReactGA.initialize('UA-130515862-2')
             ReactGA.pageview(window.location.pathname + window.location.search)
             const fbOptions = {
-                autoConfig: true, // set pixel's autoConfig
-                debug: false, // enable logs
+                autoConfig: true,
+                debug: false,
             }
-    
             ReactPixel.init('136616084074089', advancedMatching, fbOptions)
             ReactPixel.pageView();
             hotjar.initialize(1676568, 6)
-            
-            // this.setState({
-            //     tracking: true
-            // })
             this.tracking = true;
         }
     }
@@ -294,7 +262,7 @@ export default class Home extends React.Component {
                             <div className="header-section content-section">
                                 <div className="inner-container">
                                     <h2 className="logo">
-                                        <a href="#">Ecom Experts</a>
+                                        <a href="/">Ecom Experts</a>
                                     </h2>
                                     <div className='cmp-title-name dark-text'>
                                         <h2 className="cmp-title">Test My Store Speed</h2>
@@ -328,7 +296,7 @@ export default class Home extends React.Component {
                             <div className="header-section content-section home-page-header">
                                 <div className="inner-container">
                                     <h2 className="logo">
-                                        <a href="#">Ecom Experts</a>
+                                        <a href="/">Ecom Experts</a>
                                     </h2>
                                     <div className='cmp-title-name'>
                                         <h2 className="cmp-title">Test My Store Speed</h2>
@@ -340,9 +308,9 @@ export default class Home extends React.Component {
                     
                                         <div className="speed-test-input-section">
                                             <form>
-                                                <input type="text" placeholder="Enter your store URL" onChange={this.onUrlChange} />
-                                                <button type="submit" onClick={this.speedCheck} className="desktop-button">Test my speed</button>
-                                                <button type="submit" onClick={this.speedCheck} className="mobile-button">
+                                                <input type="text" placeholder="Enter your store URL" onChange={this.OnUrlChange} />
+                                                <button type="submit" onClick={this.TestShopifyUrlSpeed} className="desktop-button">Test my speed</button>
+                                                <button type="submit" onClick={this.TestShopifyUrlSpeed} className="mobile-button">
                                                     <Icon source={ArrowRightMinor} color="white" />
                                                 </button>
                                             </form>
@@ -435,9 +403,9 @@ export default class Home extends React.Component {
                                 
                                 <div className="speed-test-input-section">
                                     <form>
-                                        <input type="text" placeholder="Enter your store URL" onChange={this.onUrlChange} />
-                                        <button type="submit" onClick={this.speedCheck} className="desktop-button">Test my speed</button>
-                                        <button type="submit" onClick={this.speedCheck} className="mobile-button">
+                                        <input type="text" placeholder="Enter your store URL" onChange={this.OnUrlChange} />
+                                        <button type="submit" onClick={this.TestShopifyUrlSpeed} className="desktop-button">Test my speed</button>
+                                        <button type="submit" onClick={this.TestShopifyUrlSpeed} className="mobile-button">
                                             <Icon source={ArrowRightMinor} color="white" />
                                         </button>
                                     </form>

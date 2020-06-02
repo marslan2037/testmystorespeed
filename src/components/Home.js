@@ -32,6 +32,12 @@ export default class Home extends React.Component {
     BACKEND_URL = 'https://api.testmystorespeed.com/api/v1';
     dotsBackground = { "firstDot": "#4758be", "secondDot": "#3043af", "thirdDot": "#1b2f9f"};
 
+    loadingScreenTextList = [
+        {id: 1, detail: '64% of smartphone users expect pages to load in less than 5 seconds or less.', display: true},
+        {id: 2, detail: 'Amazon did tests that showed they would lose $1.6 BILLION every year if they slowed down by just one second.', display: false},
+        {id: 3, detail: 'Google announced in 2010 that website speed is taken into account when ranking websites.', display: false},
+    ]
+
     constructor(props) {
         super(props);
         
@@ -69,9 +75,26 @@ export default class Home extends React.Component {
                     loader: true
                 })
                 this.StartIntervalToCount();
+                this.StartIntervalForLoadingScreenText();
                 this.LoadApiData();
             }
         }
+    }
+
+    lsCurrentTextItem = 0;
+    DisplayLoadingScreenText() {
+        if(this.lsCurrentTextItem === 2) {
+            this.lsCurrentTextItem = -1;
+        }
+        this.lsCurrentTextItem = this.lsCurrentTextItem+1;
+        this.loadingScreenTextList.map((i, index) => {
+            this.loadingScreenTextList[index].display = false;
+        })
+        this.loadingScreenTextList[this.lsCurrentTextItem].display = true;
+    }
+
+    StartIntervalForLoadingScreenText() {
+        this.loadingScreenTextInterval = setInterval(this.DisplayLoadingScreenText.bind(this), 10000);
     }
 
     UpdateLoaderValue = (value) => {
@@ -96,10 +119,10 @@ export default class Home extends React.Component {
         }
     }
     ClearInterval() {
-        clearInterval(this.interval);
+        clearInterval(this.countInterval);
     }
     StartIntervalToCount() {
-        this.interval = setInterval(this.CountUp.bind(this), 250);
+        this.countInterval = setInterval(this.CountUp.bind(this), 250);
     }
 
     LoadApiData() {
@@ -142,6 +165,7 @@ export default class Home extends React.Component {
             }];
             this.directCheckLoader = false;
             
+            clearInterval(this.loadingScreenTextInterval)
             this.props.history.push('/result', { data });
             this.setState({
                 counter: 0
@@ -174,6 +198,7 @@ export default class Home extends React.Component {
                     }
                 })
             }
+            clearInterval(this.loadingScreenTextInterval)
             this.props.history.push('/');
             this.DisplayMessage();
         })
@@ -203,6 +228,7 @@ export default class Home extends React.Component {
                 loader: true
             })
             this.StartIntervalToCount();
+            this.StartIntervalForLoadingScreenText();
             this.LoadApiData();
         }
     }
@@ -216,6 +242,7 @@ export default class Home extends React.Component {
             })
             this.directCheckLoader = true;
             this.StartIntervalToCount();
+            this.StartIntervalForLoadingScreenText();
             this.LoadApiData();
         }
     } 
@@ -254,6 +281,7 @@ export default class Home extends React.Component {
 
         return (
             <>
+                
                 <ToastContainer/>
                 {
                     this.state.loader || this.directCheckLoader
@@ -276,7 +304,15 @@ export default class Home extends React.Component {
                                     <div className="single-slider-item">
                                         <div className="single-slider-content">
                                             <p className="title-message">Did you know…</p>
-                                            <h2 className="service-title">64% of smartphone users expect pages to load in less than 4 seconds.</h2>
+                                            {
+                                                this.loadingScreenTextList.map((i, index) => {
+                                                    if(i.display === true) {
+                                                        return(
+                                                            <h2 className="service-title" key={index}>{i.detail}</h2>
+                                                        )
+                                                    }
+                                                })
+                                            }
                                         </div>
                     
                                         <div className="single-slider-animation">

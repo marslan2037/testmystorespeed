@@ -33,7 +33,7 @@ export default class Home extends React.Component {
     dotsBackground = { "firstDot": "#4758be", "secondDot": "#3043af", "thirdDot": "#1b2f9f"};
 
     loadingScreenTextList = [
-        {id: 1, detail: '64% of smartphone users expect pages to load in less than 5 seconds or less.', display: true},
+        {id: 1, detail: '64% of smartphone users expect pages to load in 5 seconds or less.', display: true},
         {id: 2, detail: 'Amazon did tests that showed they would lose $1.6 BILLION every year if they slowed down by just one second.', display: false},
         {id: 3, detail: 'Google announced in 2010 that website speed is taken into account when ranking websites.', display: false},
     ]

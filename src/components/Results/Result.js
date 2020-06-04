@@ -338,7 +338,7 @@ export default class Result extends React.Component {
                                             activeClass="active"
                                             smooth={true} 
                                             spy={true}
-                                            offset={-56}
+                                            offset={-60}
                                         >Theme</Link>
                                     </span>
                                 </li>
@@ -351,7 +351,7 @@ export default class Result extends React.Component {
                                             activeClass="active"
                                             smooth={true} 
                                             spy={true}
-                                            offset={-56}
+                                            offset={-60}
                                         >Apps</Link>
                                     </span>
                                 </li>
@@ -364,7 +364,7 @@ export default class Result extends React.Component {
                                             activeClass="active"
                                             smooth={true} 
                                             spy={true}
-                                            offset={-56}
+                                            offset={-60}
                                         >Advanced</Link>
                                     </span>
                                 </li>
@@ -377,7 +377,7 @@ export default class Result extends React.Component {
                                             activeClass="active"
                                             smooth={true} 
                                             spy={true}
-                                            offset={-56}
+                                            offset={-60}
                                         >Waterfall</Link>
                                     </span>
                                 </li>
@@ -412,7 +412,7 @@ export default class Result extends React.Component {
                                             activeClass="active"
                                             smooth={true}
                                             spy={true}
-                                            offset={-56}
+                                            offset={-60}
                                         >Product</Link>
                                     </span>
                                 </li>
@@ -425,7 +425,7 @@ export default class Result extends React.Component {
                                             activeClass="active"
                                             smooth={true}
                                             spy={true}
-                                            offset={-56}
+                                            offset={-60}
                                         >Collection</Link>
                                     </span>
                                 </li>
@@ -438,7 +438,7 @@ export default class Result extends React.Component {
                                             activeClass="active"
                                             smooth={true}
                                             spy={true}
-                                            offset={-56}
+                                            offset={-60}
                                         >Cart</Link>
                                     </span>
                                 </li>

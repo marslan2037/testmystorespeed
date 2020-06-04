@@ -15,18 +15,10 @@ export default class CompareHistory extends React.Component {
         this.state = {
             data: props.data,
         }
-
-        console.log(this.state)
-        // this.GetData();
-    }
-
-    PutData() {
-        console.log('putting Data')
     }
 
     GetData() {
         let data = new Helpers().calculatePageScores(this.state.data.lighthouseResult.audits)
-        console.log(data);
 
         this.setState({
             pageLoadTime: data[3],

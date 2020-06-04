@@ -11,6 +11,7 @@ export default class ImagesList extends React.Component {
             name: props.name,
             folded: true
         }
+        this.GetImagesList(); 
     }
 
     toggleFolded = () => {
@@ -40,7 +41,6 @@ export default class ImagesList extends React.Component {
     }
 
     render() {
-        this.GetImagesList(); 
 
         return (
             <>

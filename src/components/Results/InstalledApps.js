@@ -32,7 +32,6 @@ export default class InstalledApps extends React.Component {
                                             <span className="text">{app.name}</span>    
                                         </p>
                                         <p></p>
-                                        {/* <p className="card-loading-detail">33 ms <span className="p-card-bar"><span className="p-result-bar p-success-bar"></span></span></p> */}
                                     </div>
                                 )
                             })

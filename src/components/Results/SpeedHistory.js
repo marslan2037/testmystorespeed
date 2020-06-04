@@ -316,7 +316,7 @@ export default class SpeedHistory extends React.Component {
         });
     }
 
-    PutDataInHistoryList = (data) => {
+    PutDataInHistoryList(data) {
         let lists = [];
         data.map(item => {
             const d = new Date(item.timestamp)
@@ -399,13 +399,25 @@ export default class SpeedHistory extends React.Component {
                                     <p>
                                         <select id="userleftlist" onChange={this.handleLeftChange}>
                                             <option>Select Value</option>
-                                            {this.state.historyList.map((v, i) => <option key={i} value={v.id}>{v.label}</option>)}
+                                            {
+                                                this.state.historyList.map((v, i) => {
+                                                    return(
+                                                        <option key={i} value={v.id}>{v.label}</option>
+                                                    )
+                                                })
+                                            }
                                         </select>
                                     </p>
                                     <p>
                                         <select id="userrightlist" onChange={this.handleRightChange}>
                                             <option>Select Value</option>
-                                            {this.state.historyList.map((v, i) => <option key={i} value={v.id}>{v.label}</option>)}
+                                            {
+                                                this.state.historyList.map((v, i) => {
+                                                    return(
+                                                        <option key={i} value={v.id}>{v.label}</option>
+                                                    )
+                                                })
+                                            }
                                         </select>
                                     </p>
                                 </div>

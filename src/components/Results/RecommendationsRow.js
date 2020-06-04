@@ -54,12 +54,6 @@ export default class RecommendationsRow extends React.Component {
                         }) : null
                     }
                     </ul>
-
-                    {/* <ul className="p-card-hidden-detail">
-                        <li><a>A</a></li>
-                        <li><a>A</a></li>
-                        <li><a>A</a></li>
-                    </ul> */}
                 </div>
             </>
         )

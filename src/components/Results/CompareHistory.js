@@ -58,12 +58,6 @@ export default class CompareHistory extends React.Component {
             mobile_score_text = mobile_score < 0 ? "N/A" : Math.round(mobile_score);
         }
 
-        
-
-        
-
-        
-        
         return (
             <>
                 <div className="p-compare-card-box">

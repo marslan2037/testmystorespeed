@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {AppProvider} from "@shopify/polaris";
 import './index.css';
 import App from './App';
-import en from '@shopify/polaris/locales/en.json';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

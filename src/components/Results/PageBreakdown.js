@@ -53,13 +53,11 @@ export default class PageBreakdown extends React.Component {
 
             console.log(this.state.desktopData.lighthouseResult.audits)
             let desktopScores = new Helpers().calculatePageScores(this.state.desktopData.lighthouseResult.audits);
-            console.log(desktopScores)
             desktopPLT = desktopScores[3];
             desktopTPS = desktopScores[5];
             desktopTR = desktopScores[6];
 
             let mobileScores = new Helpers().calculatePageScores(this.state.mobileData.lighthouseResult.audits);
-            console.log(mobileScores);
             mobilePLT = mobileScores[3];
             mobileTPS = mobileScores[5];
             mobileTR = mobileScores[6];
@@ -84,7 +82,6 @@ export default class PageBreakdown extends React.Component {
                                     <div className="p-screen-sizes-box">
                                         <div></div>
                                         <div></div>
-                                        {/* <div></div> */}
                                         <div className="desktop-screen">
                                             <img src={this.state.desktopData.lighthouseResult.audits['final-screenshot'].details.data} alt='screenshot'/>
                                         </div>
@@ -102,14 +99,12 @@ export default class PageBreakdown extends React.Component {
                                                     <p></p>
                                                     <p>
                                                         <span>
-                                                            {/* <i className="fa fa-desktop" aria-hidden="true"></i> */}
                                                             <Icon source={DesktopMajorMonotone} />
                                                         </span>
                                                         DESKTOP
                                                     </p>
                                                     <p>
                                                         <span>
-                                                            {/* <i className="fa fa-mobile" aria-hidden="true"></i> */}
                                                             <Icon source={MobileMajorMonotone} />
                                                         </span>
                                                         MOBILE

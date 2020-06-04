@@ -34,8 +34,9 @@ export default class Home extends React.Component {
 
     loadingScreenTextList = [
         {id: 1, detail: '64% of smartphone users expect pages to load in 5 seconds or less.', display: true},
-        {id: 2, detail: 'Amazon did tests that showed they would lose $1.6 BILLION every year if they slowed down by just one second.', display: false},
+        {id: 2, detail: 'Amazon did tests that showed they would lose $1.6 billion every year if they slowed down by just one second.', display: false},
         {id: 3, detail: 'Google announced in 2010 that website speed is taken into account when ranking websites.', display: false},
+        {id: 4, detail: 'A two-second delay in page load time can cause your bounce rate to double.', display: false},
     ]
 
     constructor(props) {
@@ -83,7 +84,7 @@ export default class Home extends React.Component {
 
     lsCurrentTextItem = 0;
     DisplayLoadingScreenText() {
-        if(this.lsCurrentTextItem === 2) {
+        if(this.lsCurrentTextItem === (this.loadingScreenTextList.length - 1)) {
             this.lsCurrentTextItem = -1;
         }
         this.lsCurrentTextItem = this.lsCurrentTextItem+1;
@@ -281,7 +282,6 @@ export default class Home extends React.Component {
 
         return (
             <>
-                
                 <ToastContainer/>
                 {
                     this.state.loader || this.directCheckLoader

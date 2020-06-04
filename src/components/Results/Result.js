@@ -2,7 +2,7 @@ import React from 'react';
 import ReactTooltip from "react-tooltip";
 import 'react-circular-progressbar/dist/styles.css';
 import Helpers from '../../Helpers';
-import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
+import { Link, Events, animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
 import PieChart from './ChartResults/PieChart';
 import {Icon} from '@shopify/polaris';
 import { 
@@ -46,6 +46,7 @@ export default class Result extends React.Component {
                         {id: 2, name: 'Theme', active: false},
                         {id: 3, name: 'Apps', active: false},
                         {id: 4, name: 'Advanced', display: false},
+                        {id: 5, name: 'Waterfall', display: false},
                     ]
                 },
                 {
@@ -280,7 +281,7 @@ export default class Result extends React.Component {
                     <div className="p-header p-have-grid p-middle-grid">
                         <div className="logo grid-item" onClick={this.GotoHomePage}>
                             <h2 className="logo">
-                                <a>Ecom Experts</a>
+                                <span className="header-logo">Ecom Experts</span>
                             </h2>
                             <p className="cmp-title">Test My Store Speed</p>
                         </div>
@@ -365,6 +366,19 @@ export default class Result extends React.Component {
                                             spy={true}
                                             offset={-56}
                                         >Advanced</Link>
+                                    </span>
+                                </li>
+
+                                <li>
+                                    <span className={this.state.sectionList[0].display ? 'anchor' : 'anchor dummy-anchor'}>
+                                        <Link 
+                                            to="waterfall_section" 
+                                            onClick={() => this.ToggleInnerTab(1, 5, 'waterfall_section')} 
+                                            activeClass="active"
+                                            smooth={true} 
+                                            spy={true}
+                                            offset={-56}
+                                        >Waterfall</Link>
                                     </span>
                                 </li>
 
@@ -477,7 +491,7 @@ export default class Result extends React.Component {
                                     <div name="performance_section">
                                         <h2 className="main-content-heading">Performance</h2>
 
-                                        <div  name="summary_section">
+                                        <div name="summary_section">
                                             <h2 className="p-small-heading">Summary <span>{data[0].url}</span></h2>
                                             <div className="single-section-box">
                                             <div className="p-site-score">
@@ -599,14 +613,16 @@ export default class Result extends React.Component {
                                             </div>
                                         </div>
 
-                                        <h2 className="p-small-heading">Waterfall</h2>
-                                        <div className="single-section-box">
-                                            <div className="p-detail-box">
-                                                <h2>Waterfall</h2>
-                                                <Waterfall data={data[0].gt_har}  id={1} />
-                                                <p className="waterfall-mobile">Switch to Desktop view to see Waterfall</p>
-                                            </div>
-                                        </div>
+                                        <div name="waterfall_section">
+                                            <h2 className="p-small-heading">Waterfall</h2>
+                                            <div className="single-section-box">
+                                                <div className="p-detail-box">
+                                                    <h2>Waterfall</h2>
+                                                    <Waterfall data={data[0].gt_har}  id={1} />
+                                                    <p className="waterfall-mobile">Switch to Desktop view to see Waterfall</p>
+                                                </div>
+                                            </div>                
+                                        </div>                
                                                     
                                         <ul className="p-buttons page-bottom-button">
                                             <li onClick={() => this.ToggleTab(2, 1, 'false', 'true')}><button>Next: Page Breakdown</button></li>

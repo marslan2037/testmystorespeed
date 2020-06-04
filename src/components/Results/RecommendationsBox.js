@@ -112,23 +112,7 @@ export default class RecommendationsBox extends React.Component {
                     this.filteredLength.push(item);
                 }
             });
-            // this.auditsSorted.map(item => {
-            //     if(item[1].score * 100 < 100) {
-            //         this.filteredLength.push(item);
-            //     }
-            // })
         } else {
-            // this.auditsSorted.forEach(item => {
-            //     if(item[1].score * 100 >= 100) {
-            //         this.filteredLength.push(item);
-            //     }
-            // });
-            // this.auditsSorted.map(item => {
-            //     if(item[1].score * 100 >= 100) {
-            //         this.filteredLength.push(item);
-            //     }
-            // })
-
             this.auditsSorted.forEach(item => {
                 if(item[1].score * 100 >= 100) {
                     this.filteredLength.push(item);

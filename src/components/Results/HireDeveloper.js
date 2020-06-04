@@ -45,7 +45,7 @@ export default class HireDeveloper extends React.Component {
                                 <p>
                                     Get help from a dedicated Shopify developer today. No contracts. 100% money-back guarantee. 
                                 </p>
-                                <p className="p-list-heading">Here are a few examples of what Carson can do:</p>
+                                {/* <p className="p-list-heading">Here are a few examples of what Carson can do:</p>
                                 <ul>
                                     <li>-Fix and style Shopify themes</li>
                                     <li>-Organize shop collections</li>
@@ -53,7 +53,7 @@ export default class HireDeveloper extends React.Component {
                                     <li>-Optimize cart pages</li>
                                     <li>-Set up Shopify apps</li>
                                     <li>-Create custom graphics</li>
-                                </ul>
+                                </ul> */}
                             </div>
 
                             <ul className="p-buttons button-grid-alignment">

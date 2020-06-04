@@ -590,9 +590,12 @@ h2.logo {
     width: 26px;
     height: 26px;
     margin: 0; }
-    .performance-container h2.logo a {
+    .performance-container h2.logo a, span.header-logo {
       width: 26px;
       height: 26px;
+      background: url(./assets/images/logo.svg) no-repeat;
+      display: block;
+      text-indent: -9000px;
       background-size: cover; }
   .performance-container .p-have-grid.p-middle-grid {
     align-items: center; }
@@ -1113,6 +1116,7 @@ h2.logo {
             width: 100%; }
             .performance-container .p-content-container .p-content .p-detail-box .p-card-box-detail .p-card-box-row ul.p-card-hidden-detail li {
               width: 100%;
+              text-align: left;
               overflow: hidden;
               background-color: #f9f9fa; }
               .performance-container .p-content-container .p-content .p-detail-box .p-card-box-detail .p-card-box-row ul.p-card-hidden-detail li:nth-child(2n) {

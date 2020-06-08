@@ -69,6 +69,18 @@ export default class Result extends React.Component {
         }
 
         if(this.props.location.state) {
+            console.log(this.props.location)
+            if(this.props.location.pathname === '/result/performance') {
+                this.ToggleTab(1, 1, 'true', 'true')
+            } else if(this.props.location.pathname === '/result/pages') {
+                this.ToggleTab(2, 1, 'true', 'true')
+            } else if(this.props.location.pathname === '/result/recommendations') {
+                this.ToggleTab(3, 1, 'true', 'true')
+            } else if(this.props.location.pathname === '/result/speed-history') {
+                this.ToggleTab(4, 1, 'true', 'true')
+            } else if(this.props.location.pathname === '/result/hire-developer') {
+                this.ToggleTab(5, 1, 'true', 'true')
+            }
         } else {
             this.props.history.push('/');
             window.location = '/';
@@ -80,19 +92,31 @@ export default class Result extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('will mount')
         Events.scrollEvent.remove("begin");
         Events.scrollEvent.remove("end");
     }
 
     componentDidMount() {
-        console.log('component did mount')
         scrollSpy.update();
     }
 
     
 
     ToggleTab = (id, inner_id, toggle_menu, scroll_to_top) => {
+        
+        let data = this.data;
+        if(id === 1) {
+            if (this.props.location.pathname === '/result/performance') { } else { this.props.history.push('/result/performance', { data }) };
+        } else if(id === 2) {
+            if (this.props.location.pathname === '/result/pages') { } else { this.props.history.push('/result/pages', { data }) };
+        } else if(id === 3) {
+            if (this.props.location.pathname === '/result/recommendations') {  } else { this.props.history.push('/result/recommendations', { data }) };
+        } else if(id === 4) {
+            if (this.props.location.pathname === '/result/speed-history') {  } else { this.props.history.push('/result/speed-history', { data }) };
+        } else if(id === 5) {
+            if (this.props.location.pathname === '/result/hire-developer') {  } else { this.props.history.push('/result/hire-developer', { data }) };
+        } 
+
         scrollSpy.update();
         const updatedState = [];
         const updatedInnerState = [];
@@ -241,7 +265,7 @@ export default class Result extends React.Component {
     GotoHomePage() {
         window.location = '/';
     }
-
+    data;
     render() {
         let data;  
         let detectedTheme; 
@@ -251,9 +275,18 @@ export default class Result extends React.Component {
         let desktopTotalPageSize; 
         let desktopTotalRequests; 
         let desktopPageSpeedText; 
-
+        console.log(this.props);
         if(this.props.location.state) {
             if(this.props.location.state.data) {
+
+                this.data = this.props.location.state.data;
+                // props.history.push(`/app/${props.match.params.appId + 1}/detail`);
+                console.log(this.props.history)
+                console.log(this.props.location.pathname)
+                console.log(this.props.match.params)
+                // this.props.history.push('/result/foo')
+
+                
 
                 data = this.props.location.state.data;
 
@@ -267,9 +300,11 @@ export default class Result extends React.Component {
                 desktopTotalRequests = data[0].gt_result.results.page_elements;
                 desktopPageSpeedText = desktopHomePageScore < 0 ? "N/A" : Math.round(desktopHomePageScore)
             } else {
+                console.log('going back to home')
                 this.props.history.push('/');
             }
         } else {
+            console.log('going back to home')
             this.props.history.push('/');
         }
 
@@ -496,9 +531,7 @@ export default class Result extends React.Component {
                                             <div className="single-section-box">
                                             <div className="p-site-score">
                                                 <div className="round-chart">
-
                                                     <CircularProgressBar score={desktopHomePageScore} text={desktopPageSpeedText} />
-
                                                 </div>
                                                 <div className="score-detail">
                                                     <h2>
@@ -586,9 +619,7 @@ export default class Result extends React.Component {
                                         <div name="apps_section">
                                             <h2 className="p-small-heading">Apps</h2>
                                             <div className="single-section-box">
-                                                
                                                 <InstalledApps apps={installedApps} />
-
                                             </div>
                                         </div>
                                         
@@ -598,13 +629,11 @@ export default class Result extends React.Component {
                                                 <div className="p-pi-chart">
                                                     <div className="p-detail-box">
                                                         <h2>Processing Requests</h2>
-
                                                         <PieChart data={this.requestSeriesData} chart_section={'processing_request'}/>
                                                     </div>
                             
                                                     <div className="p-detail-box">
                                                         <h2>Processing Weight</h2>
-
                                                         <PieChart data={this.weightSeriesData} chart_section={'processing_weight'}/>
                                                     </div>
                                                 </div>
@@ -667,9 +696,7 @@ export default class Result extends React.Component {
                                         <h2 className="p-small-heading">Apps</h2>
                                         <p className="p-small-heading-detail">Here are our recommendations for improving your Home page.</p>
                                         <div className="single-section-box">
-
                                             <InstalledApps apps={installedApps} />
-
                                         </div>
 
                                         <Recommendations desktop_data={data[0].home} mobile_data={data[0].home_mobile} name={'Home'} theme={false} />  

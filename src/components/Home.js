@@ -167,7 +167,7 @@ export default class Home extends React.Component {
             this.directCheckLoader = false;
             
             clearInterval(this.loadingScreenTextInterval)
-            this.props.history.push('/result', { data });
+            this.props.history.push('/result/performance', { data });
             this.setState({
                 counter: 0
             })

@@ -335,7 +335,6 @@ export default class SpeedHistory extends React.Component {
     componentWillUnmount() { this.mounted = false; }
 
     render() {
-
         return (
             <>
                 <div className="single-section-box">

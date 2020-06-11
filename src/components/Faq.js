@@ -9,11 +9,11 @@ export default class Faq extends React.Component {
             data: [
                 {
                     question: 'What pages do you inspect?',
-                    answer: 'Contrary to most speedtools that just check 1 page, we check all the pages your costomer would see (home-collection-product-cart) '
+                    answer: 'Contrary to most speedtools that just check 1 page, we check all the pages your costomer would see (home-collection-product-cart).'
                 },
                 {
                     question: 'Why do you detect the store theme?',
-                    answer: 'Garbage in - garbage out. We detect your theme as often a bad theme is at the core of a bad result'
+                    answer: 'Garbage in - garbage out. We detect your theme as often a bad theme is at the core of a bad result.'
                 },
                 {
                     question: 'Do you look at mobile speed?',
@@ -25,7 +25,7 @@ export default class Faq extends React.Component {
                 },
                 {
                     question: 'What if I need help?',
-                    answer: 'Totally understandable! Within the report there is a section labled "hire a developer". '  
+                    answer: 'Totally understandable! Within the report there is a section labled "hire a developer." '  
                 }
             ]
         }

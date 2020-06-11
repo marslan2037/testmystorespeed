@@ -27,7 +27,6 @@ export default class ResponseCodeRow extends React.Component {
     }
 
     render() {
-        
         return (
             <>
                 <p className="card-name have-icon" onClick={this.ToggleFolded}>

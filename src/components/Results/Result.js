@@ -67,7 +67,7 @@ export default class Result extends React.Component {
             totalImagesLength: 0,
             url: this.props.location.state ? this.props.location.state.data[0].url : ''
         }
-
+        
         if(this.props.location.state) {
             console.log(this.props.location)
             if(this.props.location.pathname === '/result/performance') {
@@ -275,19 +275,11 @@ export default class Result extends React.Component {
         let desktopTotalPageSize; 
         let desktopTotalRequests; 
         let desktopPageSpeedText; 
-        console.log(this.props);
+        
         if(this.props.location.state) {
             if(this.props.location.state.data) {
-
                 this.data = this.props.location.state.data;
-                // props.history.push(`/app/${props.match.params.appId + 1}/detail`);
-                console.log(this.props.history)
-                console.log(this.props.location.pathname)
-                console.log(this.props.match.params)
-                // this.props.history.push('/result/foo')
-
-                
-
+                console.log(this.data)
                 data = this.props.location.state.data;
 
                 this.shareReportUrl = window.location.origin + '/' + data[0].id;
@@ -300,11 +292,9 @@ export default class Result extends React.Component {
                 desktopTotalRequests = data[0].gt_result.results.page_elements;
                 desktopPageSpeedText = desktopHomePageScore < 0 ? "N/A" : Math.round(desktopHomePageScore)
             } else {
-                console.log('going back to home')
                 this.props.history.push('/');
             }
         } else {
-            console.log('going back to home')
             this.props.history.push('/');
         }
 

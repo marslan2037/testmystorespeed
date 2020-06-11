@@ -54,12 +54,14 @@ export default class PageBreakdown extends React.Component {
             let desktopScores = new Helpers().calculatePageScores(this.state.desktopData.lighthouseResult.audits);
             desktopPLT = desktopScores[3];
             desktopTPS = desktopScores[5];
-            desktopTR = desktopScores[6];
+            desktopTR = this.state.desktopData.lighthouseResult.audits['resource-summary'].details.items[0].requestCount;
+            // desktopTR = desktopScores[6];
 
             let mobileScores = new Helpers().calculatePageScores(this.state.mobileData.lighthouseResult.audits);
             mobilePLT = mobileScores[3];
             mobileTPS = mobileScores[5];
-            mobileTR = mobileScores[6];
+            mobileTR = this.state.mobileData.lighthouseResult.audits['resource-summary'].details.items[0].requestCount;
+            // mobileTR = mobileScores[6];
 
             desktop_html_score = desktop_language_score[0]
             desktop_css_score = desktop_language_score[1]

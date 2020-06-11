@@ -19,6 +19,7 @@ export default class RecommendationsRow extends React.Component {
             folded: !this.state.folded
         })
     }
+
     render() {
         return (
             <>
@@ -28,8 +29,11 @@ export default class RecommendationsRow extends React.Component {
                     </span>
                     <span className="text">{this.state.title ? this.state.title : null}</span>
                 </p>
+
                 <p className="type">{this.state.category}</p>
+                
                 <p className="effort">{this.state.effort}</p>
+                
                 <p className="card-loading-detail">
                     {this.state.savings} ms 
                     <span className="p-card-bar">
@@ -38,8 +42,9 @@ export default class RecommendationsRow extends React.Component {
                         </span>
                     </span>
                 </p>
+                
                 <div style={{textAlign: 'left'}} className={this.state.folded ? "p-card-hidden-detail p-hide-detail" : "p-card-hidden-detail"}>
-                    {this.state.description}
+                    { this.state.description }
 
                     <ul className="p-card-hidden-detail" style={{marginTop: '10px'}}>
                     {

@@ -33,6 +33,7 @@ code {
 
 .dummy-anchor a {
   background: initial !important;
+  color: inherit !important;
 }
 
 @media (min-width: 1024px) and (max-width: 1500px) {

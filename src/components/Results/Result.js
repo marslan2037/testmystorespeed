@@ -69,18 +69,6 @@ export default class Result extends React.Component {
         }
         
         if(this.props.location.state) {
-            console.log(this.props.location)
-            if(this.props.location.pathname === '/result/performance') {
-                this.ToggleTab(1, 1, 'true', 'true')
-            } else if(this.props.location.pathname === '/result/pages') {
-                this.ToggleTab(2, 1, 'true', 'true')
-            } else if(this.props.location.pathname === '/result/recommendations') {
-                this.ToggleTab(3, 1, 'true', 'true')
-            } else if(this.props.location.pathname === '/result/speed-history') {
-                this.ToggleTab(4, 1, 'true', 'true')
-            } else if(this.props.location.pathname === '/result/hire-developer') {
-                this.ToggleTab(5, 1, 'true', 'true')
-            }
         } else {
             this.props.history.push('/');
             window.location = '/';
@@ -98,12 +86,25 @@ export default class Result extends React.Component {
 
     componentDidMount() {
         scrollSpy.update();
+
+        if(this.props.location.state) {
+            if(this.props.location.pathname === '/result/performance') {
+                this.ToggleTab(1, 1, 'true', 'true')
+            } else if(this.props.location.pathname === '/result/pages') {
+                this.ToggleTab(2, 1, 'true', 'true')
+            } else if(this.props.location.pathname === '/result/recommendations') {
+                this.ToggleTab(3, 1, 'true', 'true')
+            } else if(this.props.location.pathname === '/result/speed-history') {
+                this.ToggleTab(4, 1, 'true', 'true')
+            } else if(this.props.location.pathname === '/result/hire-developer') {
+                this.ToggleTab(5, 1, 'true', 'true')
+            }
+        }
     }
 
     
 
     ToggleTab = (id, inner_id, toggle_menu, scroll_to_top) => {
-        
         let data = this.data;
         if(id === 1) {
             if (this.props.location.pathname === '/result/performance') { } else { this.props.history.push('/result/performance', { data }) };
@@ -268,12 +269,10 @@ export default class Result extends React.Component {
     data;
     render() {
         let data;  
-        let detectedTheme; 
+        let theme_data; 
         let installedApps; 
-        let desktopPageLoadTime;
-        let desktopHomePageScore;
-        let desktopTotalPageSize; 
-        let desktopTotalRequests; 
+        let desktopHomePageScore;        
+        let performace_data;
         let desktopPageSpeedText; 
         
         if(this.props.location.state) {
@@ -285,11 +284,11 @@ export default class Result extends React.Component {
                 this.shareReportUrl = window.location.origin + '/' + data[0].id;
                 this.GetAdvanceChartEntries(data[0].gt_har.log.entries);
                 desktopHomePageScore = data[0].gt_pagespeed.pageStats.overallScore;
-                detectedTheme = data[0].detect.theme.name;
+                // detectedTheme = data[0].detect.theme.name;
+                theme_data = data[0].theme_data ? data[0].theme_data : {name: 'NaN', score: 0, speed: 0};
                 installedApps = data[0].detect.installed_apps;
-                desktopPageLoadTime = data[0].gt_result.results.page_load_time / 1000;
-                desktopTotalPageSize = data[0].gt_result.results.page_bytes;
-                desktopTotalRequests = data[0].gt_result.results.page_elements;
+                performace_data = data[0].gt_result;
+
                 desktopPageSpeedText = desktopHomePageScore < 0 ? "N/A" : Math.round(desktopHomePageScore)
             } else {
                 this.props.history.push('/');
@@ -544,8 +543,8 @@ export default class Result extends React.Component {
                                             <div className="p-result-cards">
                                                 <div className="single-result-card">
                                                     <h2 className="p-small-heading">
-                                                        {desktopPageLoadTime} s
-                                                        <i className={desktopPageLoadTime < 6.3 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
+                                                        {performace_data.results.page_load_time / 1000} s
+                                                        <i className={performace_data.results.page_load_time / 1000 < 6.3 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
                                                     </h2>
                                                     <span 
                                                         className="mini-title" 
@@ -555,8 +554,8 @@ export default class Result extends React.Component {
                                                 </div>
                                                 <div className="single-result-card">
                                                     <h2 className="p-small-heading">
-                                                        {new Helpers().formatBytes(desktopTotalPageSize)}
-                                                        <i className={desktopTotalPageSize < 2900000 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
+                                                        {new Helpers().formatBytes(performace_data.results.page_bytes)}
+                                                        <i className={performace_data.results.page_bytes < 2900000 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
                                                     </h2>
                                                     <span 
                                                         className="mini-title" 
@@ -566,8 +565,8 @@ export default class Result extends React.Component {
                                                 </div>
                                                 <div className="single-result-card">
                                                     <h2 className="p-small-heading">
-                                                        {desktopTotalRequests} 
-                                                        <i className={desktopTotalRequests < 119 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
+                                                        {performace_data.results.page_elements}
+                                                        <i className={performace_data.results.page_elements < 119 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
                                                     </h2>
                                                     <span 
                                                         className="mini-title" 
@@ -595,12 +594,32 @@ export default class Result extends React.Component {
                                             <div className="single-section-box">
                                                 <div className="p-result-cards">
                                                     <div className="single-result-card">
-                                                        <h2 className="p-small-heading">{detectedTheme}</h2>
+                                                        <h2 className="p-small-heading">{theme_data.name}</h2>
                                                         <span 
                                                             className="mini-title" 
                                                             data-for="main" 
                                                             data-tip="This is the theme that we detected on your store"
                                                         >Detected theme</span>
+                                                    </div>
+
+                                                    <div className="single-result-card">
+                                                        <h2 className="p-small-heading">{theme_data.score}</h2>
+                                                        <span 
+                                                            className="mini-title" 
+                                                            data-for="main" 
+                                                            data-tip="This is the score of your theme."
+                                                        >Theme score</span>
+                                                    </div>
+
+                                                    <div className="single-result-card">
+                                                        {/* <h2 className="p-small-heading">{theme_data.speed} s</h2> */}
+                                                        <h2 className="p-small-heading">{(Math.round(theme_data.speed * 100) / 100).toFixed(2)} s</h2>
+                                                        
+                                                        <span 
+                                                            className="mini-title" 
+                                                            data-for="main" 
+                                                            data-tip="This is the speed of your theme."
+                                                        >Default load time</span>
                                                     </div>
                                                 </div>
                                             </div>

@@ -29,7 +29,8 @@ export default class Home extends React.Component {
     directCheckLoader = false;
     enableTracking = true;
     tracking = false;
-    BACKEND_URL = 'https://api.testmystorespeed.com/api/v1';
+    // BACKEND_URL = 'https://api.testmystorespeed.com/api/v1';
+    BACKEND_URL = 'https://speedchecker-1.herokuapp.com/api/v1';
     dotsBackground = { "firstDot": "#4758be", "secondDot": "#3043af", "thirdDot": "#1b2f9f"};
 
     loadingScreenTextList = [
@@ -133,6 +134,7 @@ export default class Home extends React.Component {
         }
         if (this.url) {
             this.endpoint = this.BACKEND_URL + '/sc/hn?url=' + this.url.replace(/^https?:\/\//, '').replace(/^http?:\/\//, '') + '&pages=' + 'all';
+            // this.endpoint = this.BACKEND_URL + '/?url=' + this.url.replace(/^https?:\/\//, '').replace(/^http?:\/\//, '') + '&pages=' + 'all';
         }
 
         axios({
@@ -145,7 +147,7 @@ export default class Home extends React.Component {
             }
         }).then(res => {
             this.ClearInterval();
-
+            console.log(res.data)
             let data = [{
                 product: res.data.google_pagespeed_products,
                 collection: res.data.google_pagespeed_collections,
@@ -163,6 +165,7 @@ export default class Home extends React.Component {
                 url: res.data.url,
                 id: res.data._id,
                 history: res.data.history,
+                theme_data: res.data.theme_data
             }];
             this.directCheckLoader = false;
             

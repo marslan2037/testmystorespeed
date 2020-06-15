@@ -285,7 +285,8 @@ export default class Result extends React.Component {
                 this.GetAdvanceChartEntries(data[0].gt_har.log.entries);
                 desktopHomePageScore = data[0].gt_pagespeed.pageStats.overallScore;
                 // detectedTheme = data[0].detect.theme.name;
-                theme_data = data[0].theme_data ? data[0].theme_data : {name: 'NaN', score: 0, speed: 0};
+                theme_data = data[0].detect.theme_data ? data[0].detect.theme_data : {name: 'NaN', score: 0, speed: 0, theme_data: null};
+                console.log(theme_data)
                 installedApps = data[0].detect.installed_apps;
                 performace_data = data[0].gt_result;
 
@@ -518,75 +519,75 @@ export default class Result extends React.Component {
                                         <div name="summary_section">
                                             <h2 className="p-small-heading">Summary <span>{data[0].url}</span></h2>
                                             <div className="single-section-box">
-                                            <div className="p-site-score">
-                                                <div className="round-chart">
-                                                    <CircularProgressBar score={desktopHomePageScore} text={desktopPageSpeedText} />
+                                                <div className="p-site-score">
+                                                    <div className="round-chart">
+                                                        <CircularProgressBar score={desktopHomePageScore} text={desktopPageSpeedText} />
+                                                    </div>
+                                                    <div className="score-detail">
+                                                        <h2>
+                                                            {
+                                                                (desktopHomePageScore >= 90) ? 'Great job! ' : 
+                                                                (desktopHomePageScore >= 80) ? 'Better! ' : 
+                                                                (desktopHomePageScore >= 60 && desktopHomePageScore < 80) ? 'Ok! ' : 'Ouch! '    
+                                                            } 
+                                                            Your site scored a {desktopHomePageScore}!
+                                                        </h2>
+                                                        <p>
+                                                            Page speed score is the ultimate measure of your site’s performance. It’s based on the time it takes to load an 
+                                                            average page on your site, as well as its adherence to performance guidelines.
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div className="score-detail">
-                                                    <h2>
-                                                        {
-                                                            (desktopHomePageScore >= 90) ? 'Great job! ' : 
-                                                            (desktopHomePageScore >= 80) ? 'Better! ' : 
-                                                            (desktopHomePageScore >= 60 && desktopHomePageScore < 80) ? 'Ok! ' : 'Ouch! '    
-                                                        } 
-                                                        Your site scored a {desktopHomePageScore}!
-                                                    </h2>
-                                                    <p>
-                                                        Page speed score is the ultimate measure of your site’s performance. It’s based on the time it takes to load an 
-                                                        average page on your site, as well as its adherence to performance guidelines.
-                                                    </p>
-                                                </div>
-                                            </div>
                                             
-                                            <ReactTooltip id="main" place="top" type="dark" effect="solid" />
+                                                <ReactTooltip id="main" place="top" type="dark" effect="solid" />
 
-                                            <div className="p-result-cards">
-                                                <div className="single-result-card">
-                                                    <h2 className="p-small-heading">
-                                                        {performace_data.results.page_load_time / 1000} s
-                                                        <i className={performace_data.results.page_load_time / 1000 < 6.3 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
-                                                    </h2>
-                                                    <span 
-                                                        className="mini-title" 
-                                                        data-for="main" 
-                                                        data-tip="The average load time is 7.3s across the industry"
-                                                    >Load Time</span>
+                                                <div className="p-result-cards">
+                                                    <div className="single-result-card">
+                                                        <h2 className="p-small-heading">
+                                                            {performace_data.results.page_load_time / 1000} s
+                                                            <i className={performace_data.results.page_load_time / 1000 < 6.3 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
+                                                        </h2>
+                                                        <span 
+                                                            className="mini-title" 
+                                                            data-for="main" 
+                                                            data-tip="The average load time is 7.3s across the industry"
+                                                        >Load Time</span>
+                                                    </div>
+                                                    <div className="single-result-card">
+                                                        <h2 className="p-small-heading">
+                                                            {new Helpers().formatBytes(performace_data.results.page_bytes)}
+                                                            <i className={performace_data.results.page_bytes < 2900000 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
+                                                        </h2>
+                                                        <span 
+                                                            className="mini-title" 
+                                                            data-for="main" 
+                                                            data-tip="The average pagesize is 2.9MB across the industry"
+                                                        >Page size</span>
+                                                    </div>
+                                                    <div className="single-result-card">
+                                                        <h2 className="p-small-heading">
+                                                            {performace_data.results.page_elements}
+                                                            <i className={performace_data.results.page_elements < 119 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
+                                                        </h2>
+                                                        <span 
+                                                            className="mini-title" 
+                                                            data-for="main" 
+                                                            data-tip="The average # of requests is 119 per page cross the industry"
+                                                        >Requests</span>
+                                                    </div>
                                                 </div>
-                                                <div className="single-result-card">
-                                                    <h2 className="p-small-heading">
-                                                        {new Helpers().formatBytes(performace_data.results.page_bytes)}
-                                                        <i className={performace_data.results.page_bytes < 2900000 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
-                                                    </h2>
-                                                    <span 
-                                                        className="mini-title" 
-                                                        data-for="main" 
-                                                        data-tip="The average pagesize is 2.9MB across the industry"
-                                                    >Page size</span>
-                                                </div>
-                                                <div className="single-result-card">
-                                                    <h2 className="p-small-heading">
-                                                        {performace_data.results.page_elements}
-                                                        <i className={performace_data.results.page_elements < 119 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
-                                                    </h2>
-                                                    <span 
-                                                        className="mini-title" 
-                                                        data-for="main" 
-                                                        data-tip="The average # of requests is 119 per page cross the industry"
-                                                    >Requests</span>
+
+                                                <div className="p-screen-sizes-box p-screen-sizes-box-performance">
+                                                    <div></div>
+                                                    <div className="desktop-screen">
+                                                        <img src={'data:image/jpeg;base64,' + data[0].gt_screenshot} alt='screenshot'/>
+                                                    </div>
+                                                    <div className="mobile-screen">
+                                                        <img src={data[0].home_mobile.lighthouseResult.audits['final-screenshot'].details.data} alt='screenshoot'/>
+                                                    </div>
+                                                    <div></div>
                                                 </div>
                                             </div>
-
-                                            <div className="p-screen-sizes-box p-screen-sizes-box-performance">
-                                                <div></div>
-                                                <div className="desktop-screen">
-                                                    <img src={'data:image/jpeg;base64,' + data[0].gt_screenshot} alt='screenshot'/>
-                                                </div>
-                                                <div className="mobile-screen">
-                                                    <img src={data[0].home_mobile.lighthouseResult.audits['final-screenshot'].details.data} alt='screenshoot'/>
-                                                </div>
-                                                <div></div>
-                                            </div>
-                                        </div>
                                         </div>
 
                                         <div name="theme_section">

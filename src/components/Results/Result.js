@@ -620,32 +620,36 @@ export default class Result extends React.Component {
 
                                                     {
                                                         
-                                                        Object.entries(this.state.theme_data).length === 0 ? 
-                                                        
-                                                        null
-                                                        
-                                                        :
-                                                        
-                                                        <>
-                                                            <div className="single-result-card">
-                                                                <h2 className="p-small-heading">{this.state.theme_data.score}</h2>
-                                                                <span 
-                                                                    className="mini-title" 
-                                                                    data-for="main" 
-                                                                    data-tip="This is the score of your theme."
-                                                                >Theme score</span>
-                                                            </div>
+                                                        this.state.theme_data ? 
+                                                            Object.entries(this.state.theme_data).length === 0 ? 
+                                                            
+                                                            null
+                                                            
+                                                            :
+                                                            
+                                                            <>
+                                                                <div className="single-result-card">
+                                                                    <h2 className="p-small-heading">{this.state.theme_data.score}</h2>
+                                                                    <span 
+                                                                        className="mini-title" 
+                                                                        data-for="main" 
+                                                                        data-tip="This is the score of your theme."
+                                                                    >Theme score</span>
+                                                                </div>
 
-                                                            <div className="single-result-card">
-                                                                <h2 className="p-small-heading">{(Math.round(this.state.theme_data.speed * 100) / 100).toFixed(2)} s</h2>
-                                                                
-                                                                <span 
-                                                                    className="mini-title" 
-                                                                    data-for="main" 
-                                                                    data-tip="This is the speed of your theme."
-                                                                >Default load time</span>
-                                                            </div>
-                                                        </>
+                                                                <div className="single-result-card">
+                                                                    <h2 className="p-small-heading">{(Math.round(this.state.theme_data.speed * 100) / 100).toFixed(2)} s</h2>
+                                                                    
+                                                                    <span 
+                                                                        className="mini-title" 
+                                                                        data-for="main" 
+                                                                        data-tip="This is the speed of your theme."
+                                                                    >Default load time</span>
+                                                                </div>
+                                                            </>
+                                                        :
+
+                                                        null
                                                     }
                                                 </div>
                                             </div>

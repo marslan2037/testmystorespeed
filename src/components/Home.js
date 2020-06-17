@@ -29,8 +29,8 @@ export default class Home extends React.Component {
     directCheckLoader = false;
     enableTracking = true;
     tracking = false;
-    // BACKEND_URL = 'https://api.testmystorespeed.com/api/v1';
-    BACKEND_URL = 'https://speedchecker-1.herokuapp.com/api/v1';
+    BACKEND_URL = 'https://api.testmystorespeed.com/api/v1';
+    // BACKEND_URL = 'https://speedchecker-1.herokuapp.com/api/v1';
     dotsBackground = { "firstDot": "#4758be", "secondDot": "#3043af", "thirdDot": "#1b2f9f"};
 
     loadingScreenTextList = [

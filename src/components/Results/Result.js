@@ -35,8 +35,8 @@ export default class Result extends React.Component {
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
-            sidebarFolded: false,
-            sectionList: [
+            sidebar_folded: false,
+            sections_list: [
                 {
                     id: 1, 
                     name: 'Performance', 
@@ -65,7 +65,14 @@ export default class Result extends React.Component {
                 {id: 5, name: 'Hire a Developer', display: false},
             ],
             totalImagesLength: 0,
-            url: this.props.location.state ? this.props.location.state.data[0].url : ''
+            url: this.props.location.state ? this.props.location.state.data[0].url : '',
+
+            theme: '',
+            theme_data: '',
+            installed_apps: '',
+            performace_data: '',
+            total_score: 0,
+            score_speed_text: ''
         }
         
         if(this.props.location.state) {
@@ -79,14 +86,7 @@ export default class Result extends React.Component {
         scroll.scrollToTop();
     }
 
-    componentWillUnmount() {
-        Events.scrollEvent.remove("begin");
-        Events.scrollEvent.remove("end");
-    }
-
-    componentDidMount() {
-        scrollSpy.update();
-
+    GetCurrentPage() {
         if(this.props.location.state) {
             if(this.props.location.pathname === '/result/performance') {
                 this.ToggleTab(1, 1, 'true', 'true')
@@ -102,7 +102,25 @@ export default class Result extends React.Component {
         }
     }
 
-    
+    componentWillUnmount() {
+        Events.scrollEvent.remove("begin");
+        Events.scrollEvent.remove("end");
+    }
+
+    componentDidMount() {
+        scrollSpy.update();
+        this.GetCurrentPage();
+
+        let page_state = this.props.location.state.data[0].gt_pagespeed.pageStats;
+        this.setState({
+            performace_data: this.props.location.state.data[0].gt_result.results,
+            theme: this.props.location.state.data[0].detect.theme,
+            theme_data: this.props.location.state.data[0].detect.theme_data,
+            installed_apps: this.props.location.state.data[0].detect.installed_apps,
+            total_score: page_state,
+            score_speed_text: page_state.overallScore < 0 ? "N/A" : Math.round(page_state.overallScore)
+        })
+    }
 
     ToggleTab = (id, inner_id, toggle_menu, scroll_to_top) => {
         let data = this.data;
@@ -121,8 +139,8 @@ export default class Result extends React.Component {
         scrollSpy.update();
         const updatedState = [];
         const updatedInnerState = [];
-        if (this.state.sectionList.length) {
-            this.state.sectionList.forEach(v => {
+        if (this.state.sections_list.length) {
+            this.state.sections_list.forEach(v => {
                 v.display = (id === v.id) ? true : false;
                 if(v.inner) {
                     v.inner.forEach((x, index) => {
@@ -158,7 +176,7 @@ export default class Result extends React.Component {
 
     ToggleMobileMenu = () => {
         this.setState({
-            sidebarFolded: !this.state.sidebarFolded
+            sidebar_folded: !this.state.sidebar_folded
         })
     }
 
@@ -269,28 +287,25 @@ export default class Result extends React.Component {
     data;
     render() {
         let data;  
-        let theme_data; 
-        let installedApps; 
-        let desktopHomePageScore;        
-        let performace_data;
-        let desktopPageSpeedText; 
+        // let theme_data; 
+        // let installedApps; 
+        // let desktopHomePageScore;        
+        // let performace_data;
+        // let desktopPageSpeedText; 
         
         if(this.props.location.state) {
             if(this.props.location.state.data) {
                 this.data = this.props.location.state.data;
-                console.log(this.data)
                 data = this.props.location.state.data;
 
                 this.shareReportUrl = window.location.origin + '/' + data[0].id;
                 this.GetAdvanceChartEntries(data[0].gt_har.log.entries);
-                desktopHomePageScore = data[0].gt_pagespeed.pageStats.overallScore;
-                // detectedTheme = data[0].detect.theme.name;
-                theme_data = data[0].detect.theme_data ? data[0].detect.theme_data : {name: 'NaN', score: 0, speed: 0, theme_data: null};
-                console.log(theme_data)
-                installedApps = data[0].detect.installed_apps;
-                performace_data = data[0].gt_result;
+                // desktopHomePageScore = data[0].gt_pagespeed.pageStats.overallScore;
+                // theme_data = data[0].detect.theme_data ? data[0].detect.theme_data : {name: 'NaN', score: 0, speed: 0, theme_data: null};
+                // installedApps = data[0].detect.installed_apps;
+                // performace_data = data[0].gt_result;
 
-                desktopPageSpeedText = desktopHomePageScore < 0 ? "N/A" : Math.round(desktopHomePageScore)
+                // desktopPageSpeedText = desktopHomePageScore < 0 ? "N/A" : Math.round(desktopHomePageScore)
             } else {
                 this.props.history.push('/');
             }
@@ -331,9 +346,9 @@ export default class Result extends React.Component {
                     </div>
 
                     <div className="p-content-container p-have-grid">
-                        <div className={this.state.sidebarFolded ? 'p-sidebar grid-item display-mobile-sidebar' : 'p-sidebar grid-item' }>
+                        <div className={this.state.sidebar_folded ? 'p-sidebar grid-item display-mobile-sidebar' : 'p-sidebar grid-item' }>
                             <ul>
-                                <li className={this.state.sectionList[0].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(1, 1, 'true', 'true')}>
+                                <li className={this.state.sections_list[0].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(1, 1, 'true', 'true')}>
                                     <span className="anchor">
                                         <span className="icon">
                                             <Icon source={AnalyticsMajorMonotone} />
@@ -343,7 +358,7 @@ export default class Result extends React.Component {
                                 </li>
                                 
                                 <li>
-                                    <span className={this.state.sectionList[0].display ? 'anchor' : 'anchor dummy-anchor'}>
+                                    <span className={this.state.sections_list[0].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="summary_section" 
                                             onClick={() => this.ToggleInnerTab(1, 1, 'summary_section')} 
@@ -356,7 +371,7 @@ export default class Result extends React.Component {
                                 </li>
 
                                 <li>
-                                    <span className={this.state.sectionList[0].display ? 'anchor' : 'anchor dummy-anchor'}>
+                                    <span className={this.state.sections_list[0].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="theme_section" 
                                             onClick={() => this.ToggleInnerTab(1, 2, 'theme_section')} 
@@ -369,7 +384,7 @@ export default class Result extends React.Component {
                                 </li>
 
                                 <li>
-                                    <span className={this.state.sectionList[0].display ? 'anchor' : 'anchor dummy-anchor'}>
+                                    <span className={this.state.sections_list[0].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="apps_section" 
                                             onClick={() => this.ToggleInnerTab(1, 3, 'apps_section')} 
@@ -382,7 +397,7 @@ export default class Result extends React.Component {
                                 </li>
 
                                 <li>
-                                    <span className={this.state.sectionList[0].display ? 'anchor' : 'anchor dummy-anchor'}>
+                                    <span className={this.state.sections_list[0].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="advance_section" 
                                             onClick={() => this.ToggleInnerTab(1, 4, 'advance_section')} 
@@ -395,7 +410,7 @@ export default class Result extends React.Component {
                                 </li>
 
                                 <li>
-                                    <span className={this.state.sectionList[0].display ? 'anchor' : 'anchor dummy-anchor'}>
+                                    <span className={this.state.sections_list[0].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="waterfall_section" 
                                             onClick={() => this.ToggleInnerTab(1, 5, 'waterfall_section')} 
@@ -407,7 +422,7 @@ export default class Result extends React.Component {
                                     </span>
                                 </li>
 
-                                <li className={this.state.sectionList[1].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(2, 1, 'true', 'true')}>
+                                <li className={this.state.sections_list[1].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(2, 1, 'true', 'true')}>
                                     <span className="anchor">
                                         <span className="icon">
                                             <Icon source={PageMajorMonotone} />
@@ -417,7 +432,7 @@ export default class Result extends React.Component {
                                 </li>
 
                                 <li>
-                                    <span className={this.state.sectionList[1].display ? 'anchor' : 'anchor dummy-anchor'}>
+                                    <span className={this.state.sections_list[1].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="home_section" 
                                             onClick={() => this.ToggleInnerTab(2, 1, 'home_section')} 
@@ -430,7 +445,7 @@ export default class Result extends React.Component {
                                 </li>
 
                                 <li>
-                                    <span className={this.state.sectionList[1].display ? 'anchor' : 'anchor dummy-anchor'}>
+                                    <span className={this.state.sections_list[1].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="product_section" 
                                             onClick={() => this.ToggleInnerTab(2, 2, 'product_section')} 
@@ -443,7 +458,7 @@ export default class Result extends React.Component {
                                 </li>
 
                                 <li>
-                                    <span className={this.state.sectionList[1].display ? 'anchor' : 'anchor dummy-anchor'}>
+                                    <span className={this.state.sections_list[1].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="collection_section" 
                                             onClick={() => this.ToggleInnerTab(2, 3, 'collection_section')} 
@@ -456,7 +471,7 @@ export default class Result extends React.Component {
                                 </li>
 
                                 <li>
-                                    <span className={this.state.sectionList[1].display ? 'anchor' : 'anchor dummy-anchor'}>
+                                    <span className={this.state.sections_list[1].display ? 'anchor' : 'anchor dummy-anchor'}>
                                         <Link 
                                             to="checkout_section" 
                                             onClick={() => this.ToggleInnerTab(2, 4, 'checkout_section')} 
@@ -468,7 +483,7 @@ export default class Result extends React.Component {
                                     </span>
                                 </li>
                                 
-                                <li className={this.state.sectionList[2].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(3, 1, 'true', 'true')}>
+                                <li className={this.state.sections_list[2].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(3, 1, 'true', 'true')}>
                                     <span className="anchor">
                                         <span className="icon">
                                             <Icon source={ChecklistMajorMonotone} />
@@ -477,7 +492,7 @@ export default class Result extends React.Component {
                                     </span>
                                 </li>
                                 
-                                <li className={this.state.sectionList[3].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(4, 1, 'true', 'true')}>
+                                <li className={this.state.sections_list[3].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(4, 1, 'true', 'true')}>
                                     <span className="anchor">
                                         <span className="icon">
                                             <Icon source={ExchangeMajorMonotone} />
@@ -498,7 +513,7 @@ export default class Result extends React.Component {
                                     </span>
                                 </li>
                                 
-                                <li className={this.state.sectionList[4].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(5, 1, 'true', 'true')}>
+                                <li className={this.state.sections_list[4].display ? 'have-icon active' : 'have-icon'} onClick={() => this.ToggleTab(5, 1, 'true', 'true')}>
                                     <span className="anchor">
                                         <span className="icon">
                                             <Icon source={JobsMajorMonotone} />
@@ -511,7 +526,7 @@ export default class Result extends React.Component {
                         <div className="empty-section"></div>
                         <div className="p-content grid-item">
                             {
-                                this.state.sectionList[0].display ? 
+                                this.state.sections_list[0].display ? 
                                 (
                                     <div name="performance_section">
                                         <h2 className="main-content-heading">Performance</h2>
@@ -521,16 +536,16 @@ export default class Result extends React.Component {
                                             <div className="single-section-box">
                                                 <div className="p-site-score">
                                                     <div className="round-chart">
-                                                        <CircularProgressBar score={desktopHomePageScore} text={desktopPageSpeedText} />
+                                                        <CircularProgressBar score={this.state.total_score.overallScore} text={this.state.total_score.overallScore < 0 ? "N/A" : Math.round(this.state.total_score.overallScore)} />
                                                     </div>
                                                     <div className="score-detail">
                                                         <h2>
                                                             {
-                                                                (desktopHomePageScore >= 90) ? 'Great job! ' : 
-                                                                (desktopHomePageScore >= 80) ? 'Better! ' : 
-                                                                (desktopHomePageScore >= 60 && desktopHomePageScore < 80) ? 'Ok! ' : 'Ouch! '    
+                                                                (this.state.total_score.overallScore >= 90) ? 'Great job! ' : 
+                                                                (this.state.total_score.overallScore >= 80) ? 'Better! ' : 
+                                                                (this.state.total_score.overallScore >= 60 && this.state.total_score.overallScore < 80) ? 'Ok! ' : 'Ouch! '    
                                                             } 
-                                                            Your site scored a {desktopHomePageScore}!
+                                                            Your site scored a {this.state.total_score.overallScore}!
                                                         </h2>
                                                         <p>
                                                             Page speed score is the ultimate measure of your site’s performance. It’s based on the time it takes to load an 
@@ -544,8 +559,8 @@ export default class Result extends React.Component {
                                                 <div className="p-result-cards">
                                                     <div className="single-result-card">
                                                         <h2 className="p-small-heading">
-                                                            {performace_data.results.page_load_time / 1000} s
-                                                            <i className={performace_data.results.page_load_time / 1000 < 6.3 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
+                                                            {this.state.performace_data.page_load_time / 1000} s
+                                                            <i className={this.state.performace_data.page_load_time / 1000 < 6.3 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
                                                         </h2>
                                                         <span 
                                                             className="mini-title" 
@@ -555,8 +570,8 @@ export default class Result extends React.Component {
                                                     </div>
                                                     <div className="single-result-card">
                                                         <h2 className="p-small-heading">
-                                                            {new Helpers().formatBytes(performace_data.results.page_bytes)}
-                                                            <i className={performace_data.results.page_bytes < 2900000 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
+                                                            {new Helpers().formatBytes(this.state.performace_data.page_bytes)}
+                                                            <i className={this.state.performace_data.page_bytes < 2900000 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
                                                         </h2>
                                                         <span 
                                                             className="mini-title" 
@@ -566,8 +581,8 @@ export default class Result extends React.Component {
                                                     </div>
                                                     <div className="single-result-card">
                                                         <h2 className="p-small-heading">
-                                                            {performace_data.results.page_elements}
-                                                            <i className={performace_data.results.page_elements < 119 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
+                                                            {this.state.performace_data.page_elements}
+                                                            <i className={this.state.performace_data.page_elements < 119 ? "fa fa-angle-up success-icon" : "fa fa-angle-down danger-icon"}></i>
                                                         </h2>
                                                         <span 
                                                             className="mini-title" 
@@ -595,7 +610,7 @@ export default class Result extends React.Component {
                                             <div className="single-section-box">
                                                 <div className="p-result-cards">
                                                     <div className="single-result-card">
-                                                        <h2 className="p-small-heading">{theme_data.name}</h2>
+                                                        <h2 className="p-small-heading">{this.state.theme.name}</h2>
                                                         <span 
                                                             className="mini-title" 
                                                             data-for="main" 
@@ -603,25 +618,35 @@ export default class Result extends React.Component {
                                                         >Detected theme</span>
                                                     </div>
 
-                                                    <div className="single-result-card">
-                                                        <h2 className="p-small-heading">{theme_data.score}</h2>
-                                                        <span 
-                                                            className="mini-title" 
-                                                            data-for="main" 
-                                                            data-tip="This is the score of your theme."
-                                                        >Theme score</span>
-                                                    </div>
-
-                                                    <div className="single-result-card">
-                                                        {/* <h2 className="p-small-heading">{theme_data.speed} s</h2> */}
-                                                        <h2 className="p-small-heading">{(Math.round(theme_data.speed * 100) / 100).toFixed(2)} s</h2>
+                                                    {
                                                         
-                                                        <span 
-                                                            className="mini-title" 
-                                                            data-for="main" 
-                                                            data-tip="This is the speed of your theme."
-                                                        >Default load time</span>
-                                                    </div>
+                                                        Object.entries(this.state.theme_data).length === 0 ? 
+                                                        
+                                                        null
+                                                        
+                                                        :
+                                                        
+                                                        <>
+                                                            <div className="single-result-card">
+                                                                <h2 className="p-small-heading">{this.state.theme_data.score}</h2>
+                                                                <span 
+                                                                    className="mini-title" 
+                                                                    data-for="main" 
+                                                                    data-tip="This is the score of your theme."
+                                                                >Theme score</span>
+                                                            </div>
+
+                                                            <div className="single-result-card">
+                                                                <h2 className="p-small-heading">{(Math.round(this.state.theme_data.speed * 100) / 100).toFixed(2)} s</h2>
+                                                                
+                                                                <span 
+                                                                    className="mini-title" 
+                                                                    data-for="main" 
+                                                                    data-tip="This is the speed of your theme."
+                                                                >Default load time</span>
+                                                            </div>
+                                                        </>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -629,7 +654,7 @@ export default class Result extends React.Component {
                                         <div name="apps_section">
                                             <h2 className="p-small-heading">Apps</h2>
                                             <div className="single-section-box">
-                                                <InstalledApps apps={installedApps} />
+                                                <InstalledApps apps={this.state.installed_apps} />
                                             </div>
                                         </div>
                                         
@@ -673,7 +698,7 @@ export default class Result extends React.Component {
                             }
 
                             {
-                                this.state.sectionList[1].display ? 
+                                this.state.sections_list[1].display ? 
                                 (
                                     <div div name="pagebreakdown_section">
                                         <h2 className="main-content-heading">Pages</h2>
@@ -696,7 +721,7 @@ export default class Result extends React.Component {
                             }
 
                             {
-                                this.state.sectionList[2].display ? 
+                                this.state.sections_list[2].display ? 
                                 (
                                     <div name="recommendation_section">
                                         <h2 className="main-content-heading">Recommendations</h2>
@@ -706,7 +731,7 @@ export default class Result extends React.Component {
                                         <h2 className="p-small-heading">Apps</h2>
                                         <p className="p-small-heading-detail">Here are our recommendations for improving your Home page.</p>
                                         <div className="single-section-box">
-                                            <InstalledApps apps={installedApps} />
+                                            <InstalledApps apps={this.state.installed_apps} />
                                         </div>
 
                                         <Recommendations desktop_data={data[0].home} mobile_data={data[0].home_mobile} name={'Home'} theme={false} />  
@@ -727,7 +752,7 @@ export default class Result extends React.Component {
                             }
 
                             {
-                                this.state.sectionList[3].display ? 
+                                this.state.sections_list[3].display ? 
                                 (
                                     <div name="speed_history_section">
                                         <h2 className="main-content-heading">Speed History</h2>
@@ -747,7 +772,7 @@ export default class Result extends React.Component {
                             }
 
                             {
-                                this.state.sectionList[4].display ? 
+                                this.state.sections_list[4].display ? 
                                 (
                                     <div name="hire_developer">
                                         <h2 className="main-content-heading">Hire Developer</h2>

@@ -6,22 +6,18 @@ export default class CircularProgressBar extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            score: props.score,
-            text: props.text
-        }
     }
 
     render() {
         return (
             <>
                 <CircularProgressbar 
-                    value={this.state.score} 
-                    text={this.state.text}
+                    value={this.props.score} 
+                    text={this.props.text}
                     styles={
                         buildStyles({
-                            pathColor: new Helpers().getColor(this.state.score),
-                            textColor: new Helpers().getColor(this.state.score),
+                            pathColor: new Helpers().getColor(this.props.score),
+                            textColor: new Helpers().getColor(this.props.score),
                         })
                     }
                 />
